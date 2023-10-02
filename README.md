@@ -19,6 +19,7 @@ Some of my favorite challenges, in alphabetical order, are:
 - Find Tic Tac Toe Winner :x: :o:
 - Game of Life
 - Group Anagrams
+- Jump Game 1 & 2
 - Ransom Note
 - Repeated Substring Pattern
 - Reverse Vowels
@@ -31,6 +32,7 @@ The hardest challenge that I completed is Word Search. Other challenges that I c
 - Find Peak Element :mountain:
 - Fizz Buzz (just kidding :smiley:)
 - GCD of Strings
+- House Robber
 - Number of Islands :desert_island:
 - Shortest Palindrome
 - Zigzag Conversion
