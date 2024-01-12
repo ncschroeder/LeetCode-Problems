@@ -1,10 +1,10 @@
-## Get Videos Watched by Your Friends :movie_camera: :arrow_forward:
+## Get Watched Videos by Your Friends :movie_camera: :arrow_forward:
 ### Difficulty: Medium
 ### [Link](https://leetcode.com/problems/get-watched-videos-by-your-friends/)
 
 ### Description
 
-There are `n` people, each person has a unique id between 0 and `n` - 1. Given the arrays `watchedVideos` and `friends`, where `watchedVideos[i]` and `friends[i]` contain the list of watched videos and the list of friends respectively for the person with `id = i`.
+There are `n` people, each person has a unique id between `0` and `n - 1`. Given the arrays `watchedVideos` and `friends`, where `watchedVideos[i]` and `friends[i]` contain the list of watched videos and the list of friends respectively for the person with `id = i`.
 
 Level 1 of videos are all watched videos by your friends, level 2 of videos are all watched videos by the friends of your friends and so on. In general, the level $k$ of videos are all watched videos by people with the shortest path exactly equal to $k$ with you. Given your id and the level of videos, return the list of videos ordered by their frequencies (increasing). For videos with the same frequency, order them alphabetically from least to greatest.
 
@@ -29,7 +29,7 @@ Here's a graph to give a visual representation of `friends`:
 
 ### Example 1
 
-### Input
+#### Input
 `level = 1`
 
 #### Output
@@ -73,17 +73,17 @@ You have `id = 0` (top node in the graph) and the only friend of your friends is
 ```kotlin
 fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<IntArray>, id: Int, level: Int): List<String> {
     /*
-    1st, do a breadth-first search (BFS) to find people and the level they're at. The search will end when we find
-    all people at the param level.
+    1st, do a breadth-first search (BFS) to find people and the level they're at. The search will end
+    when we find all people at the param level.
 
-    Let peopleToCheck be an deque of pairs that'll be used as a queue for doing the BFS. The 1st item of each pair
-    is a person's ID and the 2nd item is the level they're at.
+    Let peopleToCheck be a deque of pairs that's used as a queue for the BFS. Each pair contains a
+    person's ID and the level they're at.
     */
     val peopleToCheck =
         ArrayDeque<Pair<Int, Int>>()
         .apply { add(Pair(id, 0)) }
 
-    val peopleFound = mutableSetOf(id)
+    val peopleFound: MutableSet<Int> = mutableSetOf(id)
     val peopleAtParamLevel = ArrayList<Int>()
     
     while (peopleToCheck.isNotEmpty()) {
@@ -105,25 +105,26 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     /*
     Next, create the list of videos.
 
-    Let videoWatchCounts be a map where the keys are the video names and the values are the counts for
-    how many times that video was watched by the people in peopleAtParamLevel.
+    Let videoWatchCounts be a map where the keys are video names and the values are
+    the counts of times those videos were watched by the people in peopleAtParamLevel.
     */
-    val videoWatchCounts = HashMap<String, Int>()
-    
-    for (person: Int in peopleAtParamLevel) {
-        for (video: String in watchedVideos[person]) {
-            videoWatchCounts[video] = (videoWatchCounts[video] ?: 0) + 1
-        }
-    }
+    val videoWatchCounts: Map<String, Int> =
+        peopleAtParamLevel
+        .flatMap { watchedVideos[it] }
+        .groupingBy { it }
+        .eachCount()
 
-    return videoWatchCounts
+    val watchCountGroups: Map<Int, List<String>> =
+        videoWatchCounts
         .asIterable()
         .groupBy(
-            keySelector = { (_, numWatches: Int) -> numWatches },
+            keySelector = { (_, watchCount: Int) -> watchCount },
             valueTransform = { (video: String, _) -> video }
         )
+
+    return watchCountGroups
         .asIterable()
-        .sortedBy { (numWatches, _) -> numWatches }
+        .sortedBy { (watchCount, _) -> watchCount }
         .flatMap { (_, videos: List<String>) -> videos.sorted() }
 }
 ```

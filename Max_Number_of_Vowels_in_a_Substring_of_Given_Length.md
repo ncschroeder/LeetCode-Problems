@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/)
 
 ### Description
+
 Given a string `s` and an integer `k`, return the maximum number of vowel letters in any substring of `s` with length `k`.
 
 Vowel letters in English are a, e, i, o, and u.
@@ -16,6 +17,7 @@ Vowel letters in English are a, e, i, o, and u.
 `3`
 
 #### Explanation
+
 The substring "iii" contains 3 vowel letters.
 
 ### Constraints
@@ -24,7 +26,10 @@ The substring "iii" contains 3 vowel letters.
 - `1 <= k <= s.length`
 
 ### Solution
-The vowel counting at the beginning is a $O(k)$ operation and then the for loop is a $O(n - k)$ operation. $k + (n - k) = n$, so the time complexity is $O(n)$.
+
+#### Time Complexity
+
+The vowel counting at the beginning is a $O(k)$ operation and then the for loop is a $O(n - k)$ operation, where $n$ is the size of `s`. $k + (n - k) = n$, so the time complexity is $O(n)$.
 
 ```kotlin
 fun maxVowels(s: String, k: Int): Int {
@@ -42,7 +47,7 @@ fun maxVowels(s: String, k: Int): Int {
 
         if (s[i + k] in vowels) {
             curVowelCount++
-            maxVowelCount = Math.max(maxVowelCount, curVowelCount)
+            maxVowelCount = max(maxVowelCount, curVowelCount)
         }
     }
     

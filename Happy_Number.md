@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/happy-number/)
 
 ### Description
+
 Write an algorithm to determine if a number `n` is happy.
 
 A *happy number* is a number defined by the following process:
@@ -21,6 +22,7 @@ Return `true` if `n` is a happy number, and `false` if not.
 `true`
 
 #### Explanation
+
 $1^2 + 9^2 = 82$
 
 $8^2 + 2^2 = 68$
@@ -38,6 +40,7 @@ $1^2 + 0^2 + 0^2 = 1$
 `false`
 
 #### Explanation
+
 $2^2 = 4$
 
 $4^2 = 16$
@@ -80,7 +83,8 @@ fun isHappy(n: Int): Boolean {
         }
 
         i =
-            i.toString()
+            i
+            .toString()
             .sumOf { digit: Char -> digit.digitToInt().let { it * it } }
     }
 }

@@ -2,9 +2,10 @@
 ### Difficulty: Medium
 ### [Link](https://leetcode.com/problems/path-sum-ii/)
 
-The LeetCode name for this problem is just "Path Sum II" but I decided to prefix it with "Binary Tree" to make it clear that this challenge involves paths in a binary tree and not a graph or something else. This problem is similar to the problems "Path Sum" and "Path Sum III", which I solved but didn't include in this repo.
+The LeetCode name for this problem is just "Path Sum II" but I decided to prefix it with "Binary Tree" to make it clear that this challenge involves paths in a binary tree and not a graph or something else. This problem is similar to the problems ["Path Sum"](https://leetcode.com/problems/path-sum/) and ["Path Sum III"](https://leetcode.com/problems/path-sum-iii/), which I solved but didn't include in this repo.
 
 ### Description
+
 Given the root of a binary tree and an integer `targetSum`, return all root-to-leaf paths where the sum of the node values in the path equals `targetSum`. Each path should be returned as a list of the node values, not node references.
 
 A *root-to-leaf path* is a path starting from the root and ending at any leaf node. A *leaf* is a node with no children.
@@ -12,6 +13,7 @@ A *root-to-leaf path* is a path starting from the root and ending at any leaf no
 ### Example
 
 #### Input
+
 ```
 root = the root of this tree:
 
@@ -41,6 +43,7 @@ The sums of the values of those paths are 22.
 - `-1000 <= targetSum <= 1000`
 
 ### Definition for a Binary Tree Node
+
 ```kotlin
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null

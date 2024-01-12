@@ -37,7 +37,13 @@ You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. You
 - <code>0 <= s.length <= 3 * 10<sup>4</sup></code>
 - <code>1 <= g[i], s[j] <= 2<sup>31</sup> - 1</code>
 
-### Refactored Solution
+### Refactored Solutions
+
+I first came up with the descending iteration solution and eventually realized that there's an ascending iteration solution as well. I decided to include both since I think it's interesting that there's 1 solution where you can have a greed factor iterator and iterate through cookie sizes in a for loop and a different solution where you can have a cookie size iterator and iterate through greed factors in a for loop.
+
+The ascending iteration solution has better performance since the [`sortedArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-array.html) function creates a new array and sorts it while [`sortedArrayDescending`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-array-descending.html) creates a new array, sorts it, and reverses it.
+
+#### Ascending Iteration Solution
 
 ```kotlin
 fun findContentChildren(g: IntArray, s: IntArray): Int {        
@@ -57,16 +63,34 @@ fun findContentChildren(g: IntArray, s: IntArray): Int {
 }
 ```
 
-### Original Solution
+#### Descending Iteration Solution
 
-In this solution, I used deques and realized that using deques in this situation is unnecessary since I'm just using and removing the last elements of them without adding any elements to them. An iterator can be used instead so that's why one is being used in the solution above.
 
 ```kotlin
-fun IntArray.toSortedDeque(): ArrayDeque<Int> =
-    apply { sort() }
-    .asList()
-    .let { ArrayDeque(elements = it) }
+fun findContentChildren(g: IntArray, s: IntArray): Int {
+    if (s.isEmpty()) return 0
+
+    val cookieSizeIterator: Iterator<Int> = s.sortedArrayDescending().iterator()
+    var cookieSize: Int = cookieSizeIterator.next()
+    var numKidsContent = 0
     
+    for (greedFactor: Int in g.sortedArrayDescending()) {
+        if (greedFactor <= cookieSize) {
+            numKidsContent++
+            if (!cookieSizeIterator.hasNext()) break
+            cookieSize = cookieSizeIterator.next()
+        }
+    }
+    
+    return numKidsContent
+}
+```
+
+### Original Solution
+
+In this solution, I used deques and realized that using deques in this situation is unnecessary since I'm just using and removing the last elements of them without adding any elements to them. An iterator and a for loop can be used instead so that's why those are being used in the solutions above.
+
+```kotlin
 fun findContentChildren(g: IntArray, s: IntArray): Int {
     val gStack = g.toSortedDeque()
     val sStack = s.toSortedDeque()
@@ -85,4 +109,9 @@ fun findContentChildren(g: IntArray, s: IntArray): Int {
     
     return count
 }
+
+fun IntArray.toSortedDeque(): ArrayDeque<Int> =
+    apply { sort() }
+    .asList()
+    .let { ArrayDeque(elements = it) }
 ```

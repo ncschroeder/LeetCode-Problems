@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/)
 
 ### Description
+
 Tic-Tac-Toe is played by two players A and B on a 3 x 3 grid. The rules of Tic-Tac-Toe are:
 - Players take turns placing characters into empty squares.
 - The first player A always places X characters, while the second player B always places O characters.
@@ -21,10 +22,12 @@ You can assume that `moves` is valid (i.e., it follows the rules of Tic-Tac-Toe)
 `moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]`
 
 #### Output
-`A`
+`"A"`
 
 #### Explanation
+
 The grid will look like:
+
 ```
 X
   X
@@ -37,10 +40,12 @@ O O X
 `moves = [[0,0],[1,1],[2,0],[1,0],[1,2],[2,1],[0,1],[0,2],[2,2]]`
 
 #### Output
-`Draw`
+`"Draw"`
 
 ### Explanation:
+
 The grid will look like:
+
 ```
 X X O
 O O X
@@ -77,7 +82,7 @@ fun tictactoe(moves: Array<IntArray>): String {
             addAll(grid)
 
             // Columns
-            for (col in 0 until 3) {
+            for (col: Int in 0 until 3) {
                 add((0 until 3).map { grid[it][col] })
             }
 

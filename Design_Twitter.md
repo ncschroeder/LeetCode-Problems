@@ -2,9 +2,12 @@
 ### Difficulty: Medium
 ### [Link](https://leetcode.com/problems/design-twitter/)
 
-As mentioned in the README, this is a unique problem since it's 1 of 3 LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
+As mentioned in the README, this is a unique problem since it's 1 of 2 LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
+
+As of January 16<sup>th</sup>, 2024; this problem is called "Design Twitter". I wonder if LeetCode is ever going to rename it to "Design X". :thinking:
 
 ### Description
+
 Design a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.
 
 Implement the `Twitter` class:
@@ -53,37 +56,37 @@ class Twitter {
     val tweets = ArrayList<Tweet>()
 
     /*
-    Let usersAndFollowing be a map where the keys are all ints in the range of 1 to 500, inclusive. These are for user IDs.
-    The 1st constraint says that user IDs are in that range. The values are sets of the IDs of the users that are followed
-    by the user whose ID is the key.
+    Let usersAndFollowing be a map where the keys are user IDs and the values are sets of the IDs of the users that are
+    followed by the user whose ID is the key. The entries are lazily added when somebody follows somebody for the 1st time.
     */
-    val usersAndFollowing: Map<Int, MutableSet<Int>> =
-        (1..500).associateWith { HashSet() }
-
+    val usersAndFollowing = HashMap<Int, MutableSet<Int>>()
+    
     fun postTweet(userId: Int, tweetId: Int) {
         tweets.add(Tweet(userId, tweetId))
     }
 
     fun getNewsFeed(userId: Int): List<Int> {
-        val followingIds: Set<Int> = usersAndFollowing.getValue(userId)
+        val followingIds: Set<Int>? = usersAndFollowing[userId]
         
         return tweets
             .asReversed()
-            .filter { it.userId == userId || it.userId in followingIds }
+            .filter { it.userId == userId || followingIds?.contains(it.userId) == true }
             .take(10)
             .map { it.tweetId }
     }
 
     fun follow(followerId: Int, followeeId: Int) {
-        usersAndFollowing
-        .getValue(followerId)
-        .add(followeeId)
+        val followingIds: MutableSet<Int>? = usersAndFollowing[followerId]
+        
+        if (followingIds != null) {
+            followingIds.add(followeeId)
+        } else {
+            usersAndFollowing[followerId] = mutableSetOf(followeeId)
+        }
     }
 
     fun unfollow(followerId: Int, followeeId: Int) {
-        usersAndFollowing
-        .getValue(followerId)
-        .remove(followeeId)
+        usersAndFollowing[followerId]?.remove(followeeId)
     }
 }
 ```

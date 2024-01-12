@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/determine-if-two-events-have-conflict/)
 
 ### Description
+
 You are given two arrays of strings that represent two inclusive events that happened on the same day, `event1` and `event2`, where:
 - <code>event1 = [startTime<sub>1</sub>, endTime<sub>1</sub>]</code>
 - <code>event2 = [startTime<sub>2</sub>, endTime<sub>2</sub>]</code>
@@ -22,6 +23,7 @@ Return `true` if there is a conflict between two events. Otherwise, return `fals
 `true`
 
 #### Explanation
+
 The two events intersect at time 2:00 ( :clock2: ).
 
 ### Example 2
@@ -33,6 +35,7 @@ The two events intersect at time 2:00 ( :clock2: ).
 `true`
 
 #### Explanation
+
 The two events intersect starting from 1:30 ( :clock130: ) to 2:00 ( :clock2: ).
 
 ### Example 3
@@ -44,6 +47,7 @@ The two events intersect starting from 1:30 ( :clock130: ) to 2:00 ( :clock2: ).
 `false`
 
 #### Explanation
+
 The two events do not intersect.
 
 ### Constraints
@@ -62,7 +66,7 @@ fun haveConflict(event1: Array<String>, event2: Array<String>): Boolean {
             timeString
             .split(":")
             .map { it.toInt() }
-            .let { (hour, minute) -> (hour * 60) + minute }
+            .let { (hour: Int, minute: Int) -> (hour * 60) + minute }
         }
 
     val (startMinute1: Int, endMinute1: Int) = event1.map(timeToMinutes)
@@ -71,7 +75,6 @@ fun haveConflict(event1: Array<String>, event2: Array<String>): Boolean {
     val event1Minutes: IntRange = startMinute1..endMinute1
     val event2Minutes: IntRange = startMinute2..endMinute2
 
-    // The last boolean is necessary for when event 2 begins after and ends before event 1.
-    return startMinute1 in event2Minutes || endMinute1 in event2Minutes || startMinute2 in event1Minutes
+    return startMinute1 in event2Minutes || startMinute2 in event1Minutes
 }
 ```
