@@ -1,13 +1,20 @@
-# Coding Challenges
+# [LeetCode](https://leetcode.com/) Problems
 
-Most of these are from [LeetCode.com](https://leetcode.com/) but a few were asked in interviews. At the time of this writing, I completed 95 LeetCode challenges, 4 of which are SQL ones. For the LeetCode challenges that I decided to include in this repo, I included the URL and challenge description at the beginning of each file. I decided to include the constraints if there were any important ones. For example, in one of my solutions for the Longest Common Prefix challenge, I iterate through a range of 0 to 200, exclusive, and the reason for doing that is because of a constraint. It's a constraint that explains my code so I considered it important. I decided to include examples of input and output if I thought they were helpful and/or the description isn't very clear.
+My LeetCode username is csc156 and here's [my profile](https://leetcode.com/csc156/). As of January 17<sup>th</sup>, 2024; I solved 153 LeetCode problems. The LeetCode-designated difficulties of those problems are: 109 easy, 43 medium, and 1 "hard". My profile page says that I solved 2 hard problems but I cheated for 1 of them to see if LeetCode would be able to catch me and it didn't. The "hard" problem that I legitimately solved is ["Shortest Palindrome"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Shortest_Palindrome.md), which is included in this repo and you can visit that problem to see why I considered it "hard" and not hard.
 
-The challenges that I got in interviews but are also on LeetCode are Fizz Buzz and Two Sum. The challenges that I got exclusively in interviews are Count of 2s and Reverse String. For all these challenges, I give some info in the files for those challenges about what I did in the interviews.
+For this repo, I decided to include 40 problems that involve a variety of concepts, difficulties, and tactics used. The designated difficulties of those problems are: 23 easy, 16 medium, and the aforementioned "hard" one. There are some concepts that I considered notable enough that I decided to list them out and the problems that involved that concept below, in the "Problem Lists" section.
 
 
+There's a Markdown file for each problem and each file has the title, LeetCode-designated difficulty, LeetCode.com link to the problem, description, input and output examples, constraints, and code that solves the problem. There's often also some documentation about the solution, whether it be in markup or code comments. Sometimes I mention the time complexity.
 
+There was some refactoring done on the code used for these problems. Most of it is what I considered to be minor so for most problems, there's 1 solution that includes the refactored code. There are some problems where I considered the refactoring to be significant enough that I decided to include original and refactored solutions.
 
 ## Favorite Challenges
+Some problems have multiple solutions for other reasons. For example, ["Expressive Words"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Expressive_Words.md) and ["Find Peak Element"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Peak_Element.md) have tail recursive and iterative solutions.
+
+Every LeetCode problem has a "Discuss" section where people post solutions. For some problems, I posted my solution there. On [my profile page](https://leetcode.com/csc156/), there's a section that says "Recent AC", "Solutions", and "Discuss" and if you click on "Solutions", you can see the problems that I posted a solution for.
+
+In the files in this repo, there are some mathematical expressions used that can be written with GitHub Markdown, such as $O(n^2)$ and $1^2 + 9^2 = 82$. Those 2 expressions were written using `$O(n^2)$` and `$1^2 + 9^2 = 82$`, respectively. More info about writing mathematical expressions on GitHub can be found in [this *GitHub Docs* article](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions).
 
 Some of my favorite challenges, in alphabetical order, are:
 - Add Strings :heavy_plus_sign:
@@ -278,8 +285,65 @@ return groups
 
 </details>
 
-## Refactoring
+## The Value of These Problems
 
-There was some refactoring done on the code used for these challenges. Most of it was what I considered to be minor so for many challenges, there's 1 solution that includes the refactored code. There are a few challenges where I had an original solution and a refactored solution and I thought of them as different enough that I decided to include both.
+Of course, there's some value in being able to solve these problems but I, and possibly lots of other programmers, also think that there's often some value in the *way* that problems are solved. For example, for ["Valid Capital Usage"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Valid_Capital_Usage.md), I have regex and non-regex solutions that look like:
 
-Also, LeetCode uses an undisclosed old version of Kotlin that doesn't have all the functions that Kotlin currently has. Some of these include the [`Char` extension function `digitToInt`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/digit-to-int.html) and the extension functions [`max`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max.html) and [`sumOf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum-of.html), which can be used on multiple classes and interfaces. Obviously, I couldn't use these in my LeetCode submissions but I did use them in the code in this repo. So if you try to cheat by copying and pasting my code into your own LeetCode submissions, or if you just try to use my code for a submission to see if it works without having any intention of cheating, you might get a compilation error for that reason. :smiley:
+```kotlin
+fun detectCapitalUse(word: String): Boolean =
+    Regex("([A-Z]?[a-z]*)|[A-Z]+") matches word
+```
+
+```kotlin
+fun detectCapitalUse(word: String): Boolean =
+    when {
+        word.length == 1 -> true
+
+        word.first().isLowerCase() -> word.all { it.isLowerCase() }
+
+        word[1].isUpperCase() -> word.all { it.isUpperCase() }
+
+        else -> word.drop(2).all { it.isLowerCase() }
+    }
+```
+
+These solutions are pretty concise. I could've solved the problem with the code below, which I submitted to LeetCode and it got accepted.
+
+```kotlin
+fun detectCapitalUse(word: String): Boolean {
+    var isValid = true
+    if ((word.length > 1) == true) {
+        if (word[0].isLowerCase() == true) {
+            // I was able to write the next 4 lines of code without a single curly brace.
+            for (c in word)
+                if (c.isLowerCase() == false)
+                    if (isValid == true) // We could just return false here but let's not.
+                        isValid = false
+        } else if (word[1].isUpperCase() == true) {
+            for (c in word)
+                if (c.isUpperCase() == false)
+                    if (isValid == true)
+                        isValid = false
+        } else {
+            /*
+            If you have little or no familiarity with Kotlin, better ways to create the
+            IntRange below are `2 until word.length` or `2..word.lastIndex`.
+            */
+            for (i in 2..word.length - 1)
+                if (word[i].isLowerCase() == false)
+                    if (isValid == true)
+                        isValid = false
+        }
+    }
+    if (isValid == true)
+        return true
+    else if (isValid == false)
+        return false
+    else
+        return true
+}
+```
+
+:rofl:
+
+
