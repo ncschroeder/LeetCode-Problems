@@ -9,37 +9,83 @@ There's a Markdown file for each problem and each file has the title, LeetCode-d
 
 There was some refactoring done on the code used for these problems. Most of it is what I considered to be minor so for most problems, there's 1 solution that includes the refactored code. There are some problems where I considered the refactoring to be significant enough that I decided to include original and refactored solutions.
 
-## Favorite Challenges
 Some problems have multiple solutions for other reasons. For example, ["Expressive Words"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Expressive_Words.md) and ["Find Peak Element"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Peak_Element.md) have tail recursive and iterative solutions.
 
 Every LeetCode problem has a "Discuss" section where people post solutions. For some problems, I posted my solution there. On [my profile page](https://leetcode.com/csc156/), there's a section that says "Recent AC", "Solutions", and "Discuss" and if you click on "Solutions", you can see the problems that I posted a solution for.
 
 In the files in this repo, there are some mathematical expressions used that can be written with GitHub Markdown, such as $O(n^2)$ and $1^2 + 9^2 = 82$. Those 2 expressions were written using `$O(n^2)$` and `$1^2 + 9^2 = 82$`, respectively. More info about writing mathematical expressions on GitHub can be found in [this *GitHub Docs* article](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions).
 
-Some of my favorite challenges, in alphabetical order, are:
-- Add Strings :heavy_plus_sign:
-- Events Conflict :clock5:
-- Find the Town Judge :man_judge:
-- Find Tic Tac Toe Winner :x: :o:
-- Game of Life
-- Group Anagrams
-- Jump Game 1 & 2
-- Ransom Note
-- Repeated Substring Pattern
-- Reverse Vowels
+## Problem Lists
 
-## Hardest Challenges
+The problems in these lists are in alphabetical order.
 
-The hardest challenge that I completed is Word Search. Other challenges that I consider the hardest (though not all of these are necessarily hard), in alphabetical order, are:
-- Design Twitter
-- Expressive Words
-- Find Peak Element :mountain:
-- Fizz Buzz (just kidding :smiley:)
-- GCD of Strings
-- House Robber
-- Number of Islands :desert_island:
-- Shortest Palindrome
-- Zigzag Conversion
+### Favorite Problems
+- [Add Strings](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Add_Strings.md) :heavy_plus_sign:
+- [Binary Tree Path Sum II](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Binary_Tree_Path_Sum_II.md) :heavy_plus_sign:
+- [Can Place Flowers](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Can_Place_Flowers.md) :rose: :tulip: :blossom: :sunflower:
+- [Determine if 2 Events Have Conflict](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Determine_if_2_Events_Have_Conflict.md) :clock5:
+- [Find Tic-Tac-Toe Winner](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Tic-Tac-Toe_Winner.md) :x: :o: :trophy: :1st_place_medal:
+- [Game of Life](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Game_of_Life.md)
+- [Happy Number](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Happy_Number.md) :smiley:
+- [Jump Game](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Jump_Game.md) :frog: :kangaroo:
+- [Spiral Matrix](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Spiral_Matrix.md)
+- [Sum of Left Leaves](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Sum_of_Left_Leaves.md) :heavy_plus_sign: :arrow_left: :maple_leaf:
+- [Zigzag Conversion](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Zigzag_Conversion.md)
+
+### Easiest Problems
+- [2 Out of 3](https://github.com/ncschroeder/LeetCode-Problems/blob/main/2_Out_of_3.md)
+- [2 Sum](https://github.com/ncschroeder/LeetCode-Problems/blob/main/2_Sum.md) ($O(n^2)$ solution)
+- [Convert 1D Array to 2D Array](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Convert_1D_Array_to_2D_Array.md)
+- [Find Bowling Game Winner](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Bowling_Game_Winner.md) :bowling: :trophy: :1st_place_medal:
+- [Happy Number](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Happy_Number.md) :smiley:
+- [Is Subsequence](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Is_Subsequence.md)
+- [Merge Strings Alternately](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Merge_Strings_Alternately.md)
+- [Valid Capital Usage](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Valid_Capital_Usage.md)
+
+### Hardest Problems
+- [Binary Tree Path Sum II](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Binary_Tree_Path_Sum_II.md) :heavy_plus_sign:
+- [Expressive Words](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Expressive_Words.md)
+- [Get Watched Videos by Your Friends](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Get_Watched_Videos_by_Your_Friends.md) :movie_camera: :arrow_forward:
+- [House Robber](https://github.com/ncschroeder/LeetCode-Problems/blob/main/House_Robber.md)
+- [Number of Islands](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Number_of_Islands.md)  :desert_island:
+- [Shortest Palindrome](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Shortest_Palindrome.md)
+- [Word Search](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Word_Search.md)
+
+### Notable Concepts
+
+#### Linked Lists
+- [Linked List Cycle](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Linked_List_Cycle.md) :recycle:
+- [Remove Duplicates from Sorted Linked List](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Remove_Duplicates_from_Sorted_Linked_List.md)
+
+#### Binary Trees :christmas_tree: :deciduous_tree: :palm_tree:
+- [Binary Tree Path Sum II](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Binary_Tree_Path_Sum_II.md) :heavy_plus_sign:
+- [Sum of Left Leaves](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Sum_of_Left_Leaves.md) :heavy_plus_sign: :arrow_left: :maple_leaf:
+
+#### Graphs :bar_chart: (no, not that kind of graph)
+
+I'm talkin' 'bout the [graphs that have nodes and edges](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
+
+- [Find the Town Judge](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_the_Town_Judge.md) :man_judge: :woman_judge:
+- [Get Watched Videos by Your Friends](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Get_Watched_Videos_by_Your_Friends.md) :movie_camera: :arrow_forward:
+- [Max Total Importance of Roads](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Max_Total_Importance_of_Roads.md) :motorway: :cityscape:
+
+#### Binary Search
+- [Find Peak Element](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Peak_Element.md) :mountain:
+
+#### Matrix Depth-First Search
+- [Number of Islands](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Number_of_Islands.md) :desert_island:
+- [Word Search](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Word_Search.md)
+
+#### Dynamic Programming
+- [House Robber](https://github.com/ncschroeder/LeetCode-Problems/blob/main/House_Robber.md)
+- [Jump Game](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Jump_Game.md) :frog: :kangaroo:
+
+### Some Unique Problems
+
+- ["Design Twitter"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Design_Twitter.md) is 1 of 2 LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
+
+- For ["Nim Game"](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Nim_Game.md), the thinking you have to do to come up with the solution is much more complex than the 5 characters of code needed to implement the solution.
+
 ## Languages Used
 
 ### C++
