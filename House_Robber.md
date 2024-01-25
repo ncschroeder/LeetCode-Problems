@@ -48,31 +48,6 @@ Use an int array called `maxMoneys` that has the same size as `nums`. The value 
 
 Below are 2 dynamic programming solutions.
 
-#### Bottom-Up Solution :arrow_up:
-
-```kotlin
-fun rob(nums: IntArray): Int {
-    if (nums.size == 1) return nums.first()
-
-    val maxMoneys =
-        IntArray(size = nums.size)
-        .also {
-            // Set last 3 values.
-            it[it.lastIndex] = nums.last()
-            it[it.lastIndex - 1] = nums[nums.lastIndex - 1]
-            if (nums.size >= 3) {
-                it[it.lastIndex - 2] = nums[nums.lastIndex - 2] + nums.last()
-            }
-        }
-
-    for (i: Int in maxMoneys.lastIndex - 3 downTo 0) {
-        maxMoneys[i] = nums[i] + max(maxMoneys[i + 2], maxMoneys[i + 3])
-    }
-
-    return max(maxMoneys.first(), maxMoneys[1])
-}
-```
-
 #### Top-Down Solution :arrow_down:
 
 ```kotlin
@@ -99,5 +74,30 @@ fun rob(nums: IntArray): Int {
     }
 
     return max(getMaxMoney(0), getMaxMoney(1))
+}
+```
+
+#### Bottom-Up Solution :arrow_up:
+
+```kotlin
+fun rob(nums: IntArray): Int {
+    if (nums.size == 1) return nums.first()
+
+    val maxMoneys =
+        IntArray(size = nums.size)
+        .also {
+            // Set last 3 values.
+            it[it.lastIndex] = nums.last()
+            it[it.lastIndex - 1] = nums[nums.lastIndex - 1]
+            if (nums.size >= 3) {
+                it[it.lastIndex - 2] = nums[nums.lastIndex - 2] + nums.last()
+            }
+        }
+
+    for (i: Int in maxMoneys.lastIndex - 3 downTo 0) {
+        maxMoneys[i] = nums[i] + max(maxMoneys[i + 2], maxMoneys[i + 3])
+    }
+
+    return max(maxMoneys.first(), maxMoneys[1])
 }
 ```

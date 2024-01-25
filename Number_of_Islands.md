@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/number-of-islands/)
 
 ### Description
+
 Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.
 
 An *island* is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
@@ -10,6 +11,7 @@ An *island* is surrounded by water and is formed by connecting adjacent lands ho
 ### Example 1
 
 #### Input
+
 ```
 grid =
     [
@@ -26,6 +28,7 @@ grid =
 ### Example 2
 
 #### Input
+
 ```
 grid =
     [
@@ -46,11 +49,14 @@ grid =
 - `grid[i][j]` is `'0'` or `'1'`.
 
 ### Solutions
+
 To solve this, iterate througn all the cells in the grid and when we find a cell with unvisited land, do a depth-first search (DFS) on adjacent cells with unvisited land to explore the whole island.
 
-This problem is similar to an assignment I got in my "Algorithms and Advanced Data Structures" class in fall 2019. We were learning about graph theory and depth-first search and the assignment was to implement a function that could find the number of friend circles in a graph. This function has an adjacency matrix as a param and this matrix is for friendship statuses. The professor had the assignment be to solve this particular problem since a student of his got asked to solve this problem in a coding interview. This problem is virtually identical to the LeetCode problem "Number of Provinces".
+This problem is similar to an assignment I got in my "Algorithms and Advanced Data Structures" class in fall 2019. We were learning about graph theory and DFS and the assignment was to implement a function that could find the number of friend circles in a graph. This function has an adjacency matrix for friendship statuses as a param. The professor had the assignment be to solve this particular problem since a student of his got asked to solve it in a coding interview. This friends circles problem is virtually identical to the LeetCode problem ["Number of Provinces"](https://leetcode.com/problems/number-of-provinces/).
 
 #### Refactored Solution
+
+Since `Cell` is a `data class`, the hash value of an instance of it is based on the `row` and `col` properties. This allows the `visitedCells` set to work as we want it to. More info about data classes can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/data-classes.html).
 
 ```kotlin
 fun numIslands(grid: Array<CharArray>): Int {
@@ -70,15 +76,16 @@ fun numIslands(grid: Array<CharArray>): Int {
         grid.getOrNull(cell.row)?.getOrNull(cell.col) == '1' && cell !in visitedCells
 
     fun exploreIsland(startCell: Cell) {
-        val cellsToVisit =
+        // Used as a stack for a DFS.
+        val cellsToCheck =
             ArrayDeque<Cell>()
             .apply { add(startCell) }
 
-        while (cellsToVisit.isNotEmpty()) {
-            val cell = cellsToVisit.removeLast()
+        while (cellsToCheck.isNotEmpty()) {
+            val cell = cellsToCheck.removeLast()
             if (isUnvisitedLand(cell)) {
                 visitedCells.add(cell)
-                cellsToVisit.addAll(cell.getAdjacentCells())
+                cellsToCheck.addAll(cell.getAdjacentCells())
             }
         }
     }

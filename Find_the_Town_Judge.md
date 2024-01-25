@@ -2,15 +2,18 @@
 ### Difficulty: Easy
 ### [Link](https://leetcode.com/problems/find-the-town-judge/)
 
+I included this in the "Graphs" problems list. However, a graph didn't come to mind when I solved this problem. It was many months later when I was browsing LeetCode problems with the tag "Graph" when I saw that this problem has that as a tag. Then I realized that you could think of the people in the town as nodes in a graph and trust relationships as edges.
+
 ### Description
-In a town, there are `n` people labeled from 1 to `n`. There is a rumor that one of these people is secretly the town judge.
+
+In a town, there are `n` people labeled from `1` to `n`. There is a rumor that one of these people is secretly the town judge.
 
 If the town judge exists, then:
 1. The town judge trusts nobody.
 2. Everybody (except for the town judge) trusts the town judge.
 3. There is exactly one person that satisfies properties 1 and 2.
 
-You are given `n` and an array `trust` where <code>trust[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> means that the person labeled <code>a<sub>i</sub></code> trusts the person labeled <code>b<sub>i</sub></code>. If a trust relationship does not exist in the `trust` array, then such a trust relationship does not exist.
+You are given `n` and an array `trust` where <code>trust[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> representing that the person labeled <code>a<sub>i</sub></code> trusts the person labeled <code>b<sub>i</sub></code>. If a trust relationship does not exist in the `trust` array, then such a trust relationship does not exist.
 
 Return the label of the town judge if the town judge exists and can be identified, or return `-1` otherwise.
 
@@ -23,6 +26,7 @@ Return the label of the town judge if the town judge exists and can be identifie
 `3`
 
 ### Explanation
+
 Person 1 and person 2 trust person 3 but person 3 doesn't trust anybody.
 
 ### Example 2
@@ -34,6 +38,7 @@ Person 1 and person 2 trust person 3 but person 3 doesn't trust anybody.
 `-1`
 
 ### Explanation
+
 Everybody trusts somebody.
 
 ### Constraints
@@ -49,10 +54,10 @@ Everybody trusts somebody.
 ```kotlin
 fun findJudge(n: Int, trust: Array<IntArray>): Int {
     /*
-    Find the people that don't trust anybody, or the non-trusters, and the numbers of trusters they have. Finding them can
-    be done by getting a set of all the people that do trust somebody and then finding the people that aren't in that set.
-    Let nonTrustersAndNumTrusters be a map where the keys are the non-trusters and the values will start at 0 and be set to
-    the numbers of trusters.
+    Find the people that don't trust anybody, or the non-trusters, and the numbers of trusters they have. Finding the
+    non-trusters can be done by getting a set of all the people that do trust somebody and then finding the people that
+    aren't in that set. Let nonTrustersAndNumTrusters be a map where the keys are the non-trusters and the values start
+    at 0 and get set to the numbers of trusters.
     */
     val nonTrustersAndNumTrusters: MutableMap<Int, Int> =
         trust
@@ -61,7 +66,7 @@ fun findJudge(n: Int, trust: Array<IntArray>): Int {
         .associateWithTo(HashMap(), valueSelector = { 0 })
     
     for ((_, trustee: Int) in trust) {
-        // Check if the trustee is a non-truster and if it is, increment their number of trusters.
+        // Check if the trustee is a non-truster and if they are, increment their number of trusters.
         nonTrustersAndNumTrusters[trustee]?.let { nonTrustersAndNumTrusters[trustee] = it + 1 }
     }
 

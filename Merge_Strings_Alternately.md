@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/merge-strings-alternately/)
 
 ### Description
+
 You are given two strings `word1` and `word2`. Merge the strings by adding letters in alternating order, starting with `word1`. If a string is longer than the other, append the additional letters onto the end of the merged string.
 
 Return the merged string.
@@ -13,10 +14,12 @@ Return the merged string.
 `word1 = "abc", word2 = "pqr"`
 
 #### Output
-`apbqcr`
+`"apbqcr"`
 
 #### Explanation
+
 The merged string will be merged as so:
+
 ```
 word1:  a   b   c
 word2:    p   q   r
@@ -29,10 +32,12 @@ merged: a p b q c r
 `word1 = "ab", word2 = "pqrs"`
 
 #### Output
-`apbqrs`
+`"apbqrs"`
 
 #### Explanation
+
 Notice that as `word2` is longer, "rs" is appended to the end.
+
 ```
 word1:  a   b 
 word2:    p   q   r   s
@@ -43,7 +48,9 @@ merged: a p b q   r   s
 - `1 <= word1.length, word2.length <= 100`
 - `word1` and `word2` consist of lowercase English letters.
 
-### Solution
+### Refactored Solution
+
+Some info about the [`buildString`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) function can be found in the README in the "Languages Used" -> "Kotlin" -> "Functions with Receivers" section.
 
 ```kotlin
 fun mergeAlternately(word1: String, word2: String): String =
@@ -60,4 +67,15 @@ fun mergeAlternately(word1: String, word2: String): String =
         .forEach(::append)
         // Yes, in Kotlin you can iterate through the remaining elements of an iterator using a for loop or forEach.
     }
+```
+
+### Original Solution
+
+```kotlin
+fun mergeAlternately(word1: String, word2: String): String =
+    word1.zip(word2).joinToString(
+        transform = { (c1, c2) -> "$c1$c2" },
+        postfix = if (word1.length > word2.length) word1.drop(word2.length) else word2.drop(word1.length),
+        separator = ""
+    )
 ```

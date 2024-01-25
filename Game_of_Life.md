@@ -82,6 +82,7 @@ fun gameOfLife(board: Array<IntArray>): Unit {
     val lastCol: Int = board.first().lastIndex
     
     fun getNextStateValueOfCell(row: Int, col: Int): Int {
+        // Check rows and columns that contain the neighbors.
         val rowsToCheck: IntRange = max(row - 1, 0)..min(row + 1, lastRow)
         val colsToCheck: IntRange = max(col - 1, 0)..min(col + 1, lastCol)
         var numLiveNeighbors = 0

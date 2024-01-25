@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/ransom-note/)
 
 ### Description
+
 Given two strings `ransomNote` and `magazine`, return `true` if `ransomNote` can be constructed by using the letters from `magazine` and `false` otherwise.
 
 Each letter in `magazine` can only be used once in `ransomNote`.
@@ -32,26 +33,26 @@ Each letter in `magazine` can only be used once in `ransomNote`.
 ```kotlin
 fun canConstruct(ransomNote: String, magazine: String): Boolean {
     /*
-    Let magCharCounts be a map where the keys are letters we find when searching the magazine but don't need right away.
-    The values are the counts of how many of each letter we find minus the amount we use.
+    Let magLetterCounts be a map where the keys are letters we find when searching the magazine but don't need right away.
+    Each value is the count of that letter so far minus the amount we use.
     */
-    val magCharCounts = HashMap<Char, Int>()
+    val magLetterCounts = HashMap<Char, Int>()
     val magIterator: Iterator<Char> = magazine.iterator()
     
-    for (noteChar in ransomNote) {
-        when (val noteCharCount: Int? = magCharCounts[noteChar]) {
+    for (noteLetter: Char in ransomNote) {
+        when (val magLetterCount: Int? = magLetterCounts[noteLetter]) {
             null -> {
                 while (true) {
                     if (!magIterator.hasNext()) return false
-                    val magChar = magIterator.next()
-                    if (magChar == noteChar) break
-                    magCharCounts[magChar] = (magCharCounts[magChar] ?: 0) + 1
+                    val magLetter: Char = magIterator.next()
+                    if (magLetter == noteLetter) break
+                    magLetterCounts[magLetter] = (magLetterCounts[magLetter] ?: 0) + 1
                 }
             }
 
-            1 -> magCharCounts.remove(noteChar)
+            1 -> magLetterCounts.remove(noteLetter)
             
-            else -> magCharCounts[noteChar] = noteCharCount - 1
+            else -> magLetterCounts[noteLetter] = magLetterCount - 1
         }
     }
 
@@ -59,27 +60,26 @@ fun canConstruct(ransomNote: String, magazine: String): Boolean {
 }
 ```
 
-### Original Solution with Eager Searching of the Magazine
+### Solution with Eager Searching of the Magazine
 
 ```kotlin
 fun canConstruct(ransomNote: String, magazine: String): Boolean {
     /*
-    Let magCharCounts be a map where the keys are the letters in the magazine and the values are the counts for how
-    many times that letter appears in the magazine.
+    Let remainingMagLetterCounts be a map that starts off with keys for the letters in the magazine and values for 
+    the counts of those letters in the magazine.
     */
-    val magCharCounts = HashMap<Char, Int>()
+    val remainingMagLetterCounts: MutableMap<Char, Int> =
+        magazine
+        .groupingBy { it }
+        .eachCountTo(HashMap())
     
-    for (c: Char in magazine) {
-        magCharCounts[c] = (magCharCounts[c] ?: 0) + 1
-    }
-
-    for (c: Char in ransomNote) {
-        when (val charCount: Int? = magCharCounts[c]) {
+    for (noteLetter: Char in ransomNote) {
+        when (val magLetterCount: Int? = remainingMagLetterCounts[noteLetter]) {
             null -> return false
 
-            1 -> magCharCounts.remove(c)
-
-            else -> magCharCounts[c] = charCount - 1
+            1 -> remainingMagLetterCounts.remove(noteLetter)
+            
+            else -> remainingMagLetterCounts[noteLetter] = magLetterCount - 1
         }
     }
 

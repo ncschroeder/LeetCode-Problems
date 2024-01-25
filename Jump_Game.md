@@ -40,30 +40,11 @@ You will always arrive at index 3 no matter what. Its maximum jump length is 0, 
 
 An index can reach the last index *directly* if it is the last index or if the index plus its max jump length is >= the last index. An index can reach the last index *indirectly* if it can reach any indices that can reach the last index, either directly or indirectly. The exceptions to this are that the last index and the 2<sup>nd</sup> to last index can't indirectly reach the last index.
 
+
 Use a boolean array called `canReachLastBools` that has the same size as `nums`. The value at an index in `canReachLastBools` will be set to `true` if that index can reach the last index and `false` if it can't.
 
+
 Below are 2 dynamic programming solutions.
-
-#### Bottom-Up Solution :arrow_up:
-
-```kotlin
-fun canJump(nums: IntArray): Boolean {
-    val canReachLastBools =
-        BooleanArray(size = nums.size)
-        .also {
-            // Set last value.
-            it[it.lastIndex] = true
-        }
-
-    for (i: Int in canReachLastBools.lastIndex - 1 downTo 0) {
-        canReachLastBools[i] =
-            (i + 1..min(i + nums[i], canReachLastBools.lastIndex))
-            .any { canReachLastBools[it] }
-    }
-
-    return canReachLastBools.first()
-}
-```
 
 #### Top-Down Solution :arrow_down:
 
@@ -89,5 +70,26 @@ fun canJump(nums: IntArray): Boolean {
     }
 
     return canReachLast(0)
+}
+```
+
+#### Bottom-Up Solution :arrow_up:
+
+```kotlin
+fun canJump(nums: IntArray): Boolean {
+    val canReachLastBools =
+        BooleanArray(size = nums.size)
+        .also {
+            // Set last value.
+            it[it.lastIndex] = true
+        }
+
+    for (i: Int in canReachLastBools.lastIndex - 1 downTo 0) {
+        canReachLastBools[i] =
+            (i + 1..min(i + nums[i], canReachLastBools.lastIndex))
+            .any { canReachLastBools[it] }
+    }
+
+    return canReachLastBools.first()
 }
 ```

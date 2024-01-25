@@ -68,9 +68,16 @@ class Twitter {
     fun getNewsFeed(userId: Int): List<Int> {
         val followingIds: Set<Int>? = usersAndFollowing[userId]
         
+        val tweetPredicate: (Tweet) -> Boolean =
+            if (followingIds != null) {
+                { it.userId == userId || it.userId in followingIds }
+            } else {
+                { it.userId == userId }
+            }
+
         return tweets
             .asReversed()
-            .filter { it.userId == userId || followingIds?.contains(it.userId) == true }
+            .filter(tweetPredicate)
             .take(10)
             .map { it.tweetId }
     }

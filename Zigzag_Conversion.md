@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/zigzag-conversion/)
 
 ### Description
+
 The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this:
 ```
 P   A   H   N
@@ -10,11 +11,11 @@ A P L S I I G
 Y   I   R
 ```
 
-The 1<sup>st</sup> column contains the text "PAY", the 2<sup>nd</sup> column contains "P", the 3<sup>rd</sup> line contains "ALI", and so on. This visualization is read line by line as "PAHNAPLSIIGYIR". The 1<sup>st</sup> line contains the text "PAHN", the 2<sup>nd</sup> line contains "APLSIIG", and the 3<sup>rd</sup> line contains "YIR".
+The 1<sup>st</sup> column contains the text "PAY", the 2<sup>nd</sup> column contains "P", the 3<sup>rd</sup> column contains "ALI", and so on. This visualization is read line by line as "PAHNAPLSIIGYIR". The 1<sup>st</sup> line contains the text "PAHN", the 2<sup>nd</sup> line contains "APLSIIG", and the 3<sup>rd</sup> line contains "YIR".
 
 Write the code that will take a string and make this conversion given a number of rows.
 
-For the example above, the input is `s = "PAYPALISHIRING", numRows = 3` and the output is `PAHNAPLSIIGYIR`.
+For the example above, the input is `s = "PAYPALISHIRING", numRows = 3` and the output is `"PAHNAPLSIIGYIR"`.
 
 ### Another Example
 
@@ -22,9 +23,10 @@ For the example above, the input is `s = "PAYPALISHIRING", numRows = 3` and the 
 `s = "PAYPALISHIRING", numRows = 4`
 
 #### Output
-`PINALSIGYAHRPI`
+`"PINALSIGYAHRPI"`
 
 #### Explanation
+
 ```
 P     I    N
 A   L S  I G
@@ -57,8 +59,8 @@ fun convert(s: String, numRows: Int): String {
     // This'll be false when we want to decrement sbIndex.
     var incrementSbIndex = true
 
-    for (c: Char in s) {
-        rowSbs[sbIndex].append(c)
+    for (char in s) {
+        rowSbs[sbIndex].append(char)
 
         incrementSbIndex =
             if (incrementSbIndex) sbIndex < rowSbs.lastIndex
@@ -83,7 +85,7 @@ fun convert(s: String, numRows: Int): String {
         return s
     }
     
-    // Let sbs be a list of string builders that will store the text that will go on each row.
+    // Let sbs be a list of string builders that will store the text that will go in each row.
     val sbs: List<StringBuilder> = List(size = numRows, init = { StringBuilder() })
     var sbIndex = 0
     val sIterator: Iterator<Char> = s.iterator()

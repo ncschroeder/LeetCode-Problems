@@ -61,6 +61,8 @@ X O X
 
 ### Solution
 
+Some info about the [`buildList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html) function can be found in the README in the "Languages Used" -> "Kotlin" -> "Functions with Receivers" section.
+
 ```kotlin
 fun tictactoe(moves: Array<IntArray>): String {
     /*

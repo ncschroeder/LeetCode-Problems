@@ -48,7 +48,7 @@ In example 1, if we were to replace the 5 in the top left corner with an 8, the 
 
 ```kotlin
 fun isValidSudoku(board: Array<CharArray>): Boolean {
-    // isInvalid is used for checking if the contents of either a row, column, or box is invalid.
+    // isInvalid is used for checking if the contents of either a row, column, or box are invalid.
     val isInvalid: (Iterable<Char>) -> Boolean =
         { contents ->
             val digits = HashSet<Char>(9)
@@ -64,22 +64,15 @@ fun isValidSudoku(board: Array<CharArray>): Boolean {
         if (isInvalid(colContents)) return false
     }
     
-    fun getBoxContents(startRow: Int, startCol: Int): List<Char> =
-        buildList(capacity = 9) {
-            for (row: Int in startRow until startRow + 3) {
-                for (col: Int in startCol until startCol + 3) {
-                    add(board[row][col])
-                }
-            }
-        }
-
     val boxStartIndices = listOf(0, 3, 6)
     
     for (startRow: Int in boxStartIndices) {
         for (startCol: Int in boxStartIndices) {
-            if (isInvalid(getBoxContents(startRow, startCol))) {
-                return false
-            }
+            val boxContents: List<Int> =
+                (startRow until startRow + 3)
+                .flatMap { row: Int -> board[row].slice(startCol until startCol + 3) }
+
+            if (isInvalid(boxContents)) return false
         }
     }
     

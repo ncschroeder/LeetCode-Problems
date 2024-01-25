@@ -49,7 +49,7 @@ I'll use the term "letter group" to refer to groups of the same letter in a row.
 
 #### Tail Recursive Solution
 
-Info about tail recursive functions can be found in the Kotlin Docs in the ["Tail recursive functions" section of the "Functions" article](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
+Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
 
 ```kotlin
 fun expressiveWords(s: String, words: Array<String>): Int =
@@ -111,14 +111,20 @@ fun isStretchy(word: String, s: String): Boolean {
         val wordLetterGroupSize: Int = (wordNextStartIndex ?: word.length) - wordStartIndex
         val sLetterGroupSize: Int = (sNextStartIndex ?: s.length) - sStartIndex
 
-        if (wordLetterGroupSize > sLetterGroupSize || (sLetterGroupSize < 3 && sLetterGroupSize != wordLetterGroupSize)) {
-            return false
-        }
-        if (wordNextStartIndex == null) return sNextStartIndex == null
-        if (sNextStartIndex == null) return false
+        when {
+            wordLetterGroupSize > sLetterGroupSize -> return false
 
-        wordStartIndex = wordNextStartIndex
-        sStartIndex = sNextStartIndex
+            sLetterGroupSize < 3 && sLetterGroupSize != wordLetterGroupSize -> return false
+
+            wordNextStartIndex == null -> return sNextStartIndex == null
+
+            sNextStartIndex == null -> return false
+
+            else -> {
+                wordStartIndex = wordNextStartIndex
+                sStartIndex = sNextStartIndex
+            }
+        }
     }
 }
 ```

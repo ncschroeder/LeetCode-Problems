@@ -16,15 +16,17 @@ Return `true` if there is a cycle in the linked list. Otherwise, return `false`.
 - `pos` is `-1` or a valid index in the list.
 
 ### Follow-Up
+
 Can you solve it using $O(1)$ (i.e. constant) memory? Yes.
 
 ### C++ Solution that Uses Pointers :point_up_2:
 
-As mentioned in the README, I came up with an algorithm that needs to know the memory addresses of objects, and those can be accessed with pointers in C++ and cannot be accessed in Kotlin.
+As mentioned in the README, I came up with a solution that uses the memory addresses of objects, and those can be accessed with pointers in C++ and cannot be accessed in Kotlin.
 
 This solution has a time and space complexity of $O(n)$.
 
 Definition for a singly-linked list:
+
 ```c++
 struct ListNode {
     int val;
@@ -40,8 +42,8 @@ bool hasCycle(ListNode* head) {
     
     while (curNode != nullptr) {
         /*
-        insert returns a pair and the 2nd item of that pair is a bool that is true if the item wasn't in the set and got inserted.
-        That bool is false if the item was already in the set and didn't get inserted.
+        insert returns a pair and the 2nd item of that pair is a bool that is true if the item wasn't in the
+        set and got inserted. That bool is false if the item was already in the set and didn't get inserted.
         */
         if (!nodePtrs.insert(curNode).second) return true;
         curNode = curNode->next;
@@ -56,6 +58,7 @@ bool hasCycle(ListNode* head) {
 This solution has a time complexity of $O(n^2)$ and a space complexity of $O(1)$.
 
 Definition for a singly-linked list:
+
 ```kotlin
 class ListNode(var `val`: Int) {
     var next: ListNode? = null
@@ -69,10 +72,10 @@ fun hasCycle(head: ListNode?): Boolean {
     
     while (curNode != null) {
         /*
-        Check if there are any nodes before curNode that are referentially equal to curNode. If there are then that
-        means that curNode is on its 2nd loop of a cycle.
+        Check if there are any nodes before curNode that are referentially equal to curNode.
+        If there are then that means that curNode is on its 2nd loop of a cycle.
         
-        Non-null assertions will be done on nodes before curNode or equal to curNode.
+        Non-null assertions (!!s) will be done on nodes before curNode or equal to curNode.
         */
 
         var nodeToCheck: ListNode = head!!

@@ -49,7 +49,7 @@ For finding the mid index, we can use `(firstIndex + lastIndex) / 2` since the 1
 
 #### Refactored Tail Recursive Solution
 
-Info about tail recursive functions can be found in the Kotlin Docs in the ["Tail recursive functions" section of the "Functions" article](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
+Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
 
 ```kotlin
 fun findPeakElement(nums: IntArray): Int {

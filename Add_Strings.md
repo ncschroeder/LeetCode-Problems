@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/add-strings/)
 
 ### Description
+
 Given two non-negative integers, `num1` and `num2` represented as strings, return the sum of `num1` and `num2` as a string.
 
 You must solve the problem without using any built-in library for handling large integers (such as `BigInteger`). You must also not convert the inputs to integers directly.
@@ -13,7 +14,7 @@ You must solve the problem without using any built-in library for handling large
 `num1 = "11", num2 = "123"`
 
 #### Output
-`134`
+`"134"`
 
 ### Example 2
 
@@ -21,7 +22,7 @@ You must solve the problem without using any built-in library for handling large
 `num1 = "456", num2 = "77"`
 
 #### Output
-`533`
+`"533"`
 
 ### Constraints
 - <code>1 <= num1.length, num2.length <= 10<sup>4</sup></code>
@@ -29,11 +30,26 @@ You must solve the problem without using any built-in library for handling large
 - `num1` and `num2` don't have any leading zeros except for the zero itself.
 
 ### Solution
-The algorithm used in this solution is similar to the algorithm for adding 2 numbers without using a calculator nor a programming language. :slightly_smiling_face: You know, the algorithm that kids in like 2<sup>nd</sup> grade learn, though they probably don't consider it an "algorithm". :slightly_smiling_face:
+
+The algorithm used in this solution is similar to the algorithm for adding 2 numbers without using a calculator nor a programming language. :slightly_smiling_face: You know, the algorithm that kids in like 2<sup>nd</sup> grade learn, though they probably don't consider it an "algorithm". They probably think of it as "the way to do it" or something like that. :slightly_smiling_face:
+
+#### Time Complexity
+
+I'm going to use the variables $s$ and $l$ to represent the length of shortest and longest param strings, respectively. The while loop is a $O(s)$ operation, which is also a $O(l)$ operation if $s$ and $l$ are the same, of course. If applicable, the operation with the remaining digits is a $O(l - s)$ operation. $s + (l - s) = l$, so the time complexity is $O(l)$, whether the operation with the remaining digits is done or not.
+
+Another way of looking at it is: the while loop is an operation proportional to some amount of digits in the longest string. If applicable, the operation with the remaining digits is proportional to the amount of digits in the longest string that weren't involved in the while loop.
 
 ```kotlin
 fun addStrings(num1: String, num2: String): String {
-    val answerBuilder = StringBuilder(Math.max(num1.length, num2.length) + 1)
+    /*
+    If both param numbers have the same number of digits and each digit is 9, both numbers would be the highest number for that
+    amount of digits. The sum of these is a number that's 1 digit longer than both of the param numbers. If we make 1 of the
+    param numbers smaller, the sum of them is a number that's at most 1 digit longer than the param number with the most digits.
+
+    As a result, the length of the answer is at most the max of the lengths of the 2 param numbers + 1, so set the capacity of
+    answerBuilder to that. Since StringBuilder is a Java interop class, I can't write `capacity = ` before the `max(...) + 1`.
+    */
+    val answerBuilder = StringBuilder(max(num1.length, num2.length) + 1)
     
     /*
     Iterate backwards through the strings at the same time until we iterate through at least 1 of them.
@@ -69,12 +85,13 @@ fun addStrings(num1: String, num2: String): String {
 
     if (add1) {
         /*
-        Set remainingDigits to the string representation of the number formed by adding 1 to the number currently in remainingDigits.
+        Set remainingDigits to the string representation of the number formed by incrementing the number currently in
+        remainingDigits.
 
-        1st, find the index of the last digit that isn't a 9. This is a digit that needs to be incremented. If remainingDigits only
-        contains 9s then set remainingDigits to a string that is 1 digit longer than it currently is and has 1 as its 1st digit and
-        0s for the rest. Otherwise, make remainingDigits have the same digits it currently has before incrementIndex followed by the
-        digit at incrementIndex incremented followed by 0s.
+        1st, find the index of the last digit that isn't a 9. This is a digit that needs to be incremented. If remainingDigits
+        only contains 9's then set remainingDigits to a string that's 1 digit longer than it currently is and has 1 as its 1st
+        digit and 0's for the rest. Otherwise, make remainingDigits have the same digits it currently has before incrementIndex
+        followed by the digit at incrementIndex incremented followed by 0's.
         */
 
         val incrementIndex: Int = remainingDigits.indexOfLast { it != '9' }

@@ -3,6 +3,7 @@
 ### [Link](https://leetcode.com/problems/word-search/)
 
 ### Description
+
 Given an `m x n` grid of characters `board` and a string `word`, return `true` if word exists in the grid.
 
 The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
@@ -10,6 +11,7 @@ The word can be constructed from letters of sequentially adjacent cells, where a
 ### Example 1
 
 #### Input
+
 ```
 board =
     [
@@ -24,6 +26,7 @@ word = "ABCCED"
 `true`
 
 #### Explanation
+
 ```
 A -> B -> C
           |
@@ -37,6 +40,7 @@ A -> B -> C
 ### Example 2
 
 ### Input
+
 ```
 board =
     [
@@ -58,14 +62,16 @@ word = "ABCB"
 - `board` and `word` consists of only lowercase and uppercase English letters.
 
 ### Solutions
-To solve this, iterate through the letters on the board. When we find the first letter of the word, do a depth-first search with backtracking on adjacent letters to see if we can find the whole word.
+
+To solve this, iterate through the letters on the board. When we find the first letter of the word, do a depth-first search with backtracking :rewind: on adjacent letters to see if we can find the whole word.
 
 #### Refactored Solution with Efficient Backtracking
+
+Since `Cell` is a `data class`, the hash value of an instance of it is based on the `row` and `col` properties. This allows the `visitedCells` set to work as we want it to. More info about data classes can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/data-classes.html).
 
 ```kotlin
 fun exist(board: Array<CharArray>, word: String): Boolean {
     data class Cell(val row: Int, val col: Int) {
-        // If this cell is a valid cell on the board, letterOrNull is the letter at this cell. Otherwise, letterOrNull is null.
         val letterOrNull: Char?
             get() = board.getOrNull(row)?.getOrNull(col)
             
@@ -86,13 +92,15 @@ fun exist(board: Array<CharArray>, word: String): Boolean {
         }
         
         if (wordIndex == word.lastIndex) return true
-        
         visitedCells.add(cell)
-        
-        cell
-        .getAdjacentCells()
-        .any { canFormWord(cell = it, wordIndex = wordIndex + 1) }
-        .let { if (it) return true }
+
+        if (
+            cell
+            .getAdjacentCells()
+            .any { canFormWord(cell = it, wordIndex = wordIndex + 1) }
+        ) {
+            return true
+        }
         
         visitedCells.remove(cell)
         return false
