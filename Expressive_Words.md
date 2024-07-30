@@ -47,45 +47,6 @@ We can't extend "helo" to get "heeellooo" because the group "ll" is not size 3 o
 
 I'll use the term "letter group" to refer to groups of the same letter in a row. Each solution checks the letter groups of a query word and `s` to see if that word is stretchy. The start index params and variables refer to the start indices of the letter groups.
 
-#### Tail Recursive Solution
-
-Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
-
-```kotlin
-fun expressiveWords(s: String, words: Array<String>): Int =
-    words.count { isStretchy(it, s) }
-
-fun isStretchy(word: String, s: String): Boolean {
-    tailrec fun checkLetterGroups(wordStartIndex: Int, sStartIndex: Int): Boolean {
-        val letter: Char = word[wordStartIndex]
-        if (s[sStartIndex] != letter) return false
-        
-        val wordNextStartIndex: Int? =
-            (wordStartIndex + 1..word.lastIndex)
-            .firstOrNull { word[it] != letter }
-
-        val sNextStartIndex: Int? =
-            (sStartIndex + 1..s.lastIndex)
-            .firstOrNull { s[it] != letter }
-                
-        val wordLetterGroupSize: Int = (wordNextStartIndex ?: word.length) - wordStartIndex
-        val sLetterGroupSize: Int = (sNextStartIndex ?: s.length) - sStartIndex
-
-        return when {
-            wordLetterGroupSize > sLetterGroupSize -> false
-
-            sLetterGroupSize < 3 && sLetterGroupSize != wordLetterGroupSize -> false
-
-            wordNextStartIndex == null -> sNextStartIndex == null
-
-            else -> sNextStartIndex != null && checkLetterGroups(wordNextStartIndex, sNextStartIndex)
-        }
-    }
-
-    return checkLetterGroups(0, 0)
-}
-```
-
 #### Iterative Solution
 
 ```kotlin
@@ -97,6 +58,48 @@ fun isStretchy(word: String, s: String): Boolean {
     var sStartIndex = 0
 
     while (true) {
+        val letter: Char = word[wordStartIndex]
+        if (s[sStartIndex] != letter) return false
+        
+        val wordNextStartIndex: Int? =
+            (wordStartIndex + 1..word.lastIndex)
+            .firstOrNull { word[it] != letter }
+
+        val sNextStartIndex: Int? =
+            (sStartIndex + 1..s.lastIndex)
+            .firstOrNull { s[it] != letter }
+        
+        val wordLetterGroupSize: Int = (wordNextStartIndex ?: word.length) - wordStartIndex
+        val sLetterGroupSize: Int = (sNextStartIndex ?: s.length) - sStartIndex
+
+        when {
+            wordLetterGroupSize > sLetterGroupSize -> return false
+
+            sLetterGroupSize < 3 && sLetterGroupSize != wordLetterGroupSize -> return false
+
+            wordNextStartIndex == null -> return sNextStartIndex == null
+
+            sNextStartIndex == null -> return false
+
+            else -> {
+                wordStartIndex = wordNextStartIndex
+                sStartIndex = sNextStartIndex
+            }
+        }
+    }
+}
+```
+
+#### Tail Recursive Solution
+
+Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
+
+```kotlin
+fun expressiveWords(s: String, words: Array<String>): Int =
+    words.count { isStretchy(it, s) }
+
+fun isStretchy(word: String, s: String): Boolean {
+    tailrec fun checkLetterGroups(wordStartIndex: Int, sStartIndex: Int): Boolean {
         val letter: Char = word[wordStartIndex]
         if (s[sStartIndex] != letter) return false
         

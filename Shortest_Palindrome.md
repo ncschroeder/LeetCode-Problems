@@ -41,7 +41,7 @@ fun shortestPalindrome(s: String): String =
     if (s.isEmpty()) s
     else {
         (s.lastIndex downTo 0)
-        .first { s.isPalindromeTo(it) }
+        .first { s isPalindromeTo it }
         .let { s.substring(it + 1..s.lastIndex).reversed() + s }
     }
 
@@ -49,7 +49,7 @@ fun shortestPalindrome(s: String): String =
 This extension function returns true if this string is a palindrome from the start
 to the index provided, inclusive. Returns false otherwise.
 */
-fun String.isPalindromeTo(lastIndex: Int): Boolean =
+infix fun String.isPalindromeTo(lastIndex: Int): Boolean =
     (0 until (lastIndex + 1) / 2)
     .all { this[it] == this[lastIndex - it] }
 ```

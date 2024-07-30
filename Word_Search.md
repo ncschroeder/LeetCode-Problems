@@ -19,6 +19,7 @@ board =
         ["S","F","C","S"],
         ["A","D","E","E"]
     ],
+
 word = "ABCCED"
 ```
 
@@ -48,6 +49,7 @@ board =
         ["S","F","C","S"],
         ["A","D","E","E"]
     ],
+    
 word = "ABCB"
 ```
 
@@ -67,32 +69,37 @@ To solve this, iterate through the letters on the board. When we find the first 
 
 #### Refactored Solution with Efficient Backtracking
 
-Since `Cell` is a `data class`, the hash value of an instance of it is based on the `row` and `col` properties. This allows the `visitedCells` set to work as we want it to. More info about data classes can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/data-classes.html).
+Since `Cell` is a `data class`, the hash value of an instance of it is based on the `row` and `col` properties. This allows the `cellsInCurPath` set to work as we want it to. More info about data classes can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/data-classes.html).
 
 ```kotlin
 fun exist(board: Array<CharArray>, word: String): Boolean {
+    val rows: IntRange = board.indices
+    val cols: IntRange = board.first().indices
+
     data class Cell(val row: Int, val col: Int) {
-        val letterOrNull: Char?
-            get() = board.getOrNull(row)?.getOrNull(col)
             
-        fun getAdjacentCells() =
-            listOf(
+        val letter: Char
+            get() = board[row][col]
+        fun getAdjacentCells(): List<Cell> =
+            arrayOf(
                 Cell(row - 1, col),
                 Cell(row, col + 1),
                 Cell(row + 1, col),
                 Cell(row, col - 1)
             )
+            .filter { it.row in rows && it.col in cols }
     }
     
-    val visitedCells = HashSet<Cell>()
     
+    val cellsInCurPath = HashSet<Cell>()
     fun canFormWord(cell: Cell, wordIndex: Int): Boolean {
-        if (cell.letterOrNull != word[wordIndex] || cell in visitedCells) {
-            return false
+        when {
+            cell in cellsInCurPath || cell.letter != word[wordIndex] -> return false
+            
+            wordIndex == word.lastIndex -> return true
         }
-        
-        if (wordIndex == word.lastIndex) return true
-        visitedCells.add(cell)
+
+        cellsInCurPath.add(cell)
 
         if (
             cell
@@ -102,12 +109,12 @@ fun exist(board: Array<CharArray>, word: String): Boolean {
             return true
         }
         
-        visitedCells.remove(cell)
+        cellsInCurPath.remove(cell)
         return false
     }
 
-    for (row: Int in board.indices) {
-        for (col: Int in board.first().indices) {
+    for (row: Int in rows) {
+        for (col: Int in cols) {
             if (canFormWord(cell = Cell(row, col), wordIndex = 0)) {
                 return true
             }

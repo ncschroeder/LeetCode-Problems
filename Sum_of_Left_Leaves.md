@@ -28,6 +28,7 @@ root = the root of this tree:
 `24`
 
 #### Explanation
+
 9 and 15 are the only left leaves.
 
 ### Constraints
@@ -35,6 +36,7 @@ root = the root of this tree:
 - `-1000 <= Node.val <= 1000`
 
 ### Definition for a Binary Tree Node
+
 ```kotlin
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
@@ -45,19 +47,17 @@ class TreeNode(var `val`: Int) {
 ### Solution
 
 ```kotlin
-fun sumOfLeftLeaves(root: TreeNode?): Int {
-    if (root == null) return 0
-
-    val leftChild: TreeNode? = root.left
-    val leftSum: Int =
-        when {
-            leftChild == null -> 0
-
-            leftChild.left == null && leftChild.right == null -> leftChild.`val`
-
-            else -> sumOfLeftLeaves(leftChild)
-        }
+fun sumOfLeftLeaves(root: TreeNode?): Int =
+    if (root == null) 0
+    else {
+        val leftSum: Int =
+            root.left
+            ?.let {
+                if (it.left == null && it.right == null) it.`val`
+                else sumOfLeftLeaves(it) 
+            }
+            ?: 0
         
-    return leftSum + sumOfLeftLeaves(root.right)
-}
+        leftSum + sumOfLeftLeaves(root.right)
+    }
 ```

@@ -2,7 +2,7 @@
 ### Difficulty: Medium
 ### [Link](https://leetcode.com/problems/path-sum-ii/)
 
-The LeetCode name for this problem is just "Path Sum II" but I decided to prefix it with "Binary Tree" to make it clear that this challenge involves paths in a binary tree and not a graph or something else. This problem is similar to the problems ["Path Sum"](https://leetcode.com/problems/path-sum/) and ["Path Sum III"](https://leetcode.com/problems/path-sum-iii/), which I solved but didn't include in this repo.
+The LeetCode name for this problem is just "Path Sum II" but I decided to prefix it with "Binary Tree" to make it clear that this problem involves paths in a binary tree and not a graph or something else. This problem is similar to the problems ["Path Sum"](https://leetcode.com/problems/path-sum/) and ["Path Sum III"](https://leetcode.com/problems/path-sum-iii/), which I solved but didn't include in this repo.
 
 ### Description
 
@@ -58,7 +58,7 @@ fun pathSum(root: TreeNode?, targetSum: Int): List<List<Int>> {
     val paths = ArrayList<List<Int>>()
     
     // Used as a stack for keeping track of a path that's being traversed.
-    val curPath = ArrayDeque<Int>()
+    val curPath = ArrayList<Int>()
     
     fun traverse(node: TreeNode?) {
         if (node == null) return

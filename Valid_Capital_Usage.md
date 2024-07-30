@@ -18,8 +18,10 @@ Given a string `word`, return `true` if the usage of capitals in it is right.
 ### Regex Solution
 
 ```kotlin
+val regex = Regex("([A-Z]?[a-z]*)|[A-Z]+")
+
 fun detectCapitalUse(word: String): Boolean =
-    Regex("([A-Z]?[a-z]*)|[A-Z]+") matches word
+    regex matches word
 ```
 
 ### Non-Regex Solution

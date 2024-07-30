@@ -64,9 +64,9 @@ fun haveConflict(event1: Array<String>, event2: Array<String>): Boolean {
     val timeToMinutes: (String) -> Int =
         { timeString ->
             timeString
-            .split(":")
+            .split(':')
             .map { it.toInt() }
-            .let { (hour: Int, minute: Int) -> (hour * 60) + minute }
+            .let { (hour: Int, minute: Int) -> hour * 60 + minute }
         }
 
     val (startMinute1: Int, endMinute1: Int) = event1.map(timeToMinutes)

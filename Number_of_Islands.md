@@ -54,51 +54,39 @@ To solve this, iterate througn all the cells in the grid and when we find a cell
 
 This problem is similar to an assignment I got in my "Algorithms and Advanced Data Structures" class in fall 2019. We were learning about graph theory and DFS and the assignment was to implement a function that could find the number of friend circles in a graph. This function has an adjacency matrix for friendship statuses as a param. The professor had the assignment be to solve this particular problem since a student of his got asked to solve it in a coding interview. This friends circles problem is virtually identical to the LeetCode problem ["Number of Provinces"](https://leetcode.com/problems/number-of-provinces/).
 
-#### Refactored Solution
 
-Since `Cell` is a `data class`, the hash value of an instance of it is based on the `row` and `col` properties. This allows the `visitedCells` set to work as we want it to. More info about data classes can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/data-classes.html).
+#### Refactored Solution
 
 ```kotlin
 fun numIslands(grid: Array<CharArray>): Int {
-    data class Cell(val row: Int, val col: Int) {
-        fun getAdjacentCells() =
-            listOf(
-                Cell(row - 1, col),
-                Cell(row, col + 1),
-                Cell(row + 1, col),
-                Cell(row, col - 1)
-            )
-    }
+    val numRows: Int = grid.size
+    val numCols: Int = grid.first().size
 
-    val visitedCells = HashSet<Cell>()
+    // This is used for keeping track of which cells have been visited. It starts off with all falses.
+    val visitedGrid: List<BooleanArray> =
+        List(size = numRows, init = { BooleanArray(size = numCols) })
 
-    fun isUnvisitedLand(cell: Cell): Boolean =
-        grid.getOrNull(cell.row)?.getOrNull(cell.col) == '1' && cell !in visitedCells
+    fun isUnvisitedLand(row: Int, col: Int): Boolean =
+        grid.getOrNull(row)?.getOrNull(col) == '1' && !visitedGrid[row][col]
 
-    fun exploreIsland(startCell: Cell) {
-        // Used as a stack for a DFS.
-        val cellsToCheck =
-            ArrayDeque<Cell>()
-            .apply { add(startCell) }
+    fun exploreIsland(row: Int, col: Int) {
+        if (isUnvisitedLand(row, col)) {
+            visitedGrid[row][col] = true
 
-        while (cellsToCheck.isNotEmpty()) {
-            val cell = cellsToCheck.removeLast()
-            if (isUnvisitedLand(cell)) {
-                visitedCells.add(cell)
-                cellsToCheck.addAll(cell.getAdjacentCells())
-            }
+            exploreIsland(row - 1, col) // Top
+            exploreIsland(row, col + 1) // Right
+            exploreIsland(row + 1, col) // Bottom
+            exploreIsland(row, col - 1) // Left
         }
     }
 
     var numIslands = 0
 
-    for (row: Int in grid.indices) {
-        for (col: Int in grid.first().indices) {
-            Cell(row, col).let {
-                if (isUnvisitedLand(it)) {
-                    numIslands++
-                    exploreIsland(it)
-                }
+    for (row: Int in 0 until numRows) {
+        for (col: Int in 0 until numCols) {
+            if (isUnvisitedLand(row, col)) {
+                numIslands++
+                exploreIsland(row, col)
             }
         }
     }

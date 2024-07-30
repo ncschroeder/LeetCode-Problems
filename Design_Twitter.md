@@ -2,9 +2,9 @@
 ### Difficulty: Medium
 ### [Link](https://leetcode.com/problems/design-twitter/)
 
-As mentioned in the README, this is a unique problem since it's 1 of 2 LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
+As mentioned in the README, this is a unique problem since it's one of a few LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
 
-As of January 16<sup>th</sup>, 2024; this problem is called "Design Twitter". I wonder if LeetCode is ever going to rename it to "Design X". :thinking:
+As of July 29<sup>th</sup>, 2024; this problem is called "Design Twitter". I wonder if LeetCode is ever going to rename it to "Design X". :thinking:
 
 ### Description
 

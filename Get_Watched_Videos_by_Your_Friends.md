@@ -73,8 +73,8 @@ You have `id = 0` (top node in the graph) and the only friend of your friends is
 ```kotlin
 fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<IntArray>, id: Int, level: Int): List<String> {
     /*
-    1st, do a breadth-first search (BFS) to find people and the level they're at. The search will end
-    when we find all people at the param level.
+    First, do a breadth-first search (BFS) to find people and the level they're at. The search will
+    end when we find all people at the param level.
 
     Let peopleToCheck be a deque of pairs that's used as a queue for the BFS. Each pair contains a
     person's ID and the level they're at.
@@ -88,7 +88,7 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     
     while (peopleToCheck.isNotEmpty()) {
         val (person: Int, personLevel: Int) = peopleToCheck.removeFirst()
-
+        
         val personsFriendsAtNextLevel: List<Int> =
             friends[person].filter { peopleFound.add(it) }
         
@@ -106,7 +106,7 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     Next, create the list of videos.
 
     Let videoWatchCounts be a map where the keys are video names and the values are
-    the counts of times those videos were watched by the people in peopleAtParamLevel.
+    the counts of times those videos were watched by the people at the param level.
     */
     val videoWatchCounts: Map<String, Int> =
         peopleAtParamLevel
@@ -114,17 +114,12 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
         .groupingBy { it }
         .eachCount()
 
-    val watchCountGroups: Map<Int, List<String>> =
-        videoWatchCounts
-        .asIterable()
-        .groupBy(
-            keySelector = { (_, watchCount: Int) -> watchCount },
-            valueTransform = { (video: String, _) -> video }
-        )
+    val videoWatchCountComparator: Comparator<Map.Entry<String, Int>> =
+        compareBy({ (_, watchCount) -> watchCount }, { (video, _) -> video })
 
-    return watchCountGroups
+    return videoWatchCounts
         .asIterable()
-        .sortedBy { (watchCount, _) -> watchCount }
-        .flatMap { (_, videos: List<String>) -> videos.sorted() }
+        .sortedWith(videoWatchCountComparator)
+        .map { (video, _) -> video }
 }
 ```

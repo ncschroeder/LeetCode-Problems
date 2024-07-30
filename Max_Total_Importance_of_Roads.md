@@ -62,7 +62,7 @@ fun maximumImportance(n: Int, roads: Array<IntArray>): Long {
     val cityNeighborCounts = IntArray(size = n)
     
     for (road: IntArray in roads) {
-        for (city in road) {
+        for (city: Int in road) {
             cityNeighborCounts[city]++
         }
     }
@@ -85,7 +85,7 @@ fun maximumImportance(n: Int, roads: Array<IntArray>): Long {
     test cases where the max total importance is greater than the int max value.
     */
     return roads.sumOf {
-            road: IntArray -> road.sumOf { city -> cityValues.getValue(city) }.toLong()
+            road: IntArray -> road.sumOf { city: Int -> cityValues.getValue(city) }.toLong()
         }
 }
 ```

@@ -75,9 +75,9 @@ fun hasCycle(head: ListNode?): Boolean {
         Check if there are any nodes before curNode that are referentially equal to curNode.
         If there are then that means that curNode is on its 2nd loop of a cycle.
         
-        Non-null assertions (!!s) will be done on nodes before curNode or equal to curNode.
+        Non-null assertions (!!s) will be done on nodes before curNode or referentially equal to curNode.
         */
-
+        
         var nodeToCheck: ListNode = head!!
         
         for (i: Int in 0 until curNodeIndex) {
