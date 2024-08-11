@@ -38,7 +38,6 @@ The problems in these lists are in alphabetical order.
 - [Convert 1D Array to 2D Array](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Convert_1D_Array_to_2D_Array.md)
 - [Find Bowling Game Winner](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Bowling_Game_Winner.md) :bowling: :trophy: :1st_place_medal:
 - [Happy Number](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Happy_Number.md) :smiley:
-- [Is Subsequence](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Is_Subsequence.md)
 - [Merge Strings Alternately](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Merge_Strings_Alternately.md)
 - [Valid Capital Usage](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Valid_Capital_Usage.md)
 
@@ -48,6 +47,7 @@ The problems in these lists are in alphabetical order.
 - [Get Watched Videos by Your Friends](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Get_Watched_Videos_by_Your_Friends.md) :movie_camera: :arrow_forward:
 - [House Robber](https://github.com/ncschroeder/LeetCode-Problems/blob/main/House_Robber.md)
 - [Number of Islands](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Number_of_Islands.md)  :desert_island:
+- [Redundant Connection](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Redundant_Connection.md)
 - [Shortest Palindrome](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Shortest_Palindrome.md)
 - [Word Search](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Word_Search.md)
 
@@ -68,6 +68,7 @@ I'm talkin' 'bout the [graphs that have nodes and edges](https://en.wikipedia.or
 - [Find the Town Judge](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_the_Town_Judge.md) :man_judge: :woman_judge:
 - [Get Watched Videos by Your Friends](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Get_Watched_Videos_by_Your_Friends.md) :movie_camera: :arrow_forward:
 - [Max Total Importance of Roads](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Max_Total_Importance_of_Roads.md) :motorway: :cityscape:
+- [Redundant Connection](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Redundant_Connection.md)
 
 #### Binary Search
 - [Find Peak Element](https://github.com/ncschroeder/LeetCode-Problems/blob/main/Find_Peak_Element.md) :mountain:
