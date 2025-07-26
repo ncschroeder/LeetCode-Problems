@@ -42,14 +42,16 @@ The 3 combinations of 2 arrays are 1 and 2, 1 and 3, and 2 and 3. Let `majorityN
 
 ```kotlin
 fun twoOutOfThree(nums1: IntArray, nums2: IntArray, nums3: IntArray): List<Int> {
-    val set2: Set<Int> = nums2.toSet()
-    val set3: Set<Int> = nums3.toSet()
+    val set2: Set<Int> = nums2.toHashSet()
+    val set3: Set<Int> = nums3.toHashSet()
     
     val majorityNums: MutableSet<Int> = 
         nums1.filterTo(HashSet()) { it in set2 || it in set3 }
     
-    return set2
+    return (
+        set2
         .filterTo(majorityNums) { it in set3 }
         .toList()
+    )
 }
 ```

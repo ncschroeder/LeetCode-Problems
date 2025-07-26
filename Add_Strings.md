@@ -42,12 +42,13 @@ Another way of looking at it is: the while loop is an operation proportional to 
 ```kotlin
 fun addStrings(num1: String, num2: String): String {
     /*
-    If both param numbers have the same number of digits and each digit is 9, both numbers would be the highest number for that
-    amount of digits. The sum of these is a number that's 1 digit longer than both of the param numbers. If we make 1 of the
-    param numbers smaller, the sum of them is a number that's at most 1 digit longer than the param number with the most digits.
-
-    As a result, the length of the answer is at most the max of the lengths of the 2 param numbers + 1, so set the capacity of
-    answerBuilder to that. Since StringBuilder is a Java interop class, I can't write `capacity = ` before the `max(...) + 1`.
+    If both param numbers have the same number of digits and each digit is 9, then both numbers would
+    be the highest number for that amount of digits. The sum of these is a number that's 1 digit longer
+    than both of the param numbers. If we make 1 of the param numbers smaller, the sum of them is a
+    number that's at most 1 digit longer than the param number with the most digits. As a result, the
+    length of the answer is at most the max of the lengths of the 2 param numbers + 1, so set the
+    capacity of answerBuilder to that. Since StringBuilder is a Java interop class, I can't write
+    `capacity = ` before the `max(...) + 1`.
     */
     val answerBuilder = StringBuilder(max(num1.length, num2.length) + 1)
     
@@ -72,10 +73,12 @@ fun addStrings(num1: String, num2: String): String {
     }
 
     if (num1.length == num2.length) {
-        return answerBuilder
+        return (
+            answerBuilder
             .apply { if (add1) append(1) }
             .reverse()
             .toString()
+        )
     }
     
     // Get remaining digits from the longer param string.
@@ -85,12 +88,13 @@ fun addStrings(num1: String, num2: String): String {
 
     if (add1) {
         /*
-        Set remainingDigits to the string representation of the number formed by incrementing the number currently in
-        remainingDigits.
+        Set remainingDigits to the string representation of the number formed by incrementing the
+        number currently in remainingDigits.
 
-        1st, find the index of the last digit that isn't a 9. This is a digit that needs to be incremented. If remainingDigits
-        only contains 9's then set remainingDigits to a string that's 1 digit longer than it currently is and has 1 as its 1st
-        digit and 0's for the rest. Otherwise, make remainingDigits have the same digits it currently has before incrementIndex
+        First, find the index of the last digit that isn't a 9. This is a digit that needs to be
+        incremented. If remainingDigits only contains 9's then set remainingDigits to a string that's
+        1 digit longer than it currently is and has 1 as its first digit and 0's for the rest.
+        Otherwise, make remainingDigits have the same digits it currently has before incrementIndex
         followed by the digit at incrementIndex incremented followed by 0's.
         */
 
@@ -107,9 +111,11 @@ fun addStrings(num1: String, num2: String): String {
             }
     }
 
-    return answerBuilder
+    return (
+        answerBuilder
         .reverse()
         .insert(0, remainingDigits)
         .toString()
+    )
 }
 ```

@@ -44,20 +44,38 @@ class TreeNode(var `val`: Int) {
 }
 ```
 
-### Solution
+### My Favorite Solution
 
 ```kotlin
 fun sumOfLeftLeaves(root: TreeNode?): Int =
     if (root == null) 0
     else {
         val leftSum: Int =
-            root.left
-            ?.let {
+            root.left?.let {
                 if (it.left == null && it.right == null) it.`val`
                 else sumOfLeftLeaves(it) 
-            }
-            ?: 0
+            } ?: 0
         
         leftSum + sumOfLeftLeaves(root.right)
     }
+```
+
+### My 1<sup>st</sup> Solution
+
+```kotlin
+fun sumOfLeftLeaves(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    val leftChild: TreeNode? = root.left
+    val leftSum: Int =
+        when {
+            leftChild == null -> 0
+
+            leftChild.left == null && leftChild.right == null -> leftChild.`val`
+
+            else -> sumOfLeftLeaves(leftChild)
+        }
+
+    return leftSum + sumOfLeftLeaves(root.right)
+}
 ```

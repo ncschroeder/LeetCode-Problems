@@ -69,17 +69,17 @@ The 1<sup>st</sup> and 9<sup>th</sup> sums are 4, so there's an endless cycle.
 ```kotlin
 fun isHappy(n: Int): Boolean {
     /*
-    n would work fine for a variable name but in Kotlin, you can't reassign params. The variable i will be used
-    for doing the process described above.
+    n would work fine for a variable name but in Kotlin, you can't reassign params.
+    The variable i will be used for doing the process described above.
     */
     var i = n
-    val processNumbers = HashSet<Int>()
-
+    val processNums = HashSet<Int>()
+    
     while (true) {
         when {
             i == 1 -> return true
 
-            !processNumbers.add(i) -> return false
+            !processNums.add(i) -> return false
         }
 
         i =

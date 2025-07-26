@@ -49,22 +49,22 @@ The score of `player1` is 2 + 3 = 5 and the score of `player2` is 4 + 1 = 5.
 ### Solution
 
 ```kotlin
-fun isWinner(player1: IntArray, player2: IntArray): Int =
-    when (getScore(player1) compareTo getScore(player2)) {
-        1 -> 1
-        
-        -1 -> 2
-        
-        else -> 0
-    }
+class Solution {
+    fun isWinner(player1: IntArray, player2: IntArray): Int =
+        when (getScore(player1) compareTo getScore(player2)) {
+            1 -> 1
+            -1 -> 2
+            else -> 0
+        }
 
-fun getScore(player: IntArray): Int =
-    player
-    .withIndex()
-    .sumOf { (index: Int, numPins: Int) ->
-        val doubleScore: Boolean =
-            (1..2).any { player.getOrNull(index - it) == 10 }
-        
-        if (doubleScore) numPins * 2 else numPins
-    }
+    fun getScore(player: IntArray): Int =
+        player
+        .withIndex()
+        .sumOf { (index: Int, numPins: Int) ->
+            val doubleScore: Boolean =
+                (1..2).any { player.getOrNull(index - it) == 10 }
+            
+            if (doubleScore) numPins * 2 else numPins
+        }
+}
 ```

@@ -39,33 +39,30 @@ P     I
 - `s` consists of English letters (lower-case and upper-case), `','` and `'.'`.
 - `1 <= numRows <= 1000`
 
-### Refactored Solution
+#### My Favorite Solution
 
 ```kotlin
 fun convert(s: String, numRows: Int): String {
     if (numRows == 1) {
         /*
-        This is a special situation since the loop below will either increment or decrement sbIndex but we don't want either
-        of those to happen if there's only 1 row. This also happens to be a situation where we just return the param string.
+        This is a special situation since the loop below will either increment or decrement
+        sbIndex but we don't want either of those to happen if there's only 1 row.
+        This also happens to be a situation where we just return the param string.
         */
         return s
     }
 
-    // Let rowSbs be a list of string builders that will store the text that will go in each row.
+    // Let rowSbs be a list of string builders that'll store the text that'll go in each row.
     val rowSbs: List<StringBuilder> = List(size = numRows, init = { StringBuilder() })
-
     var sbIndex = 0
-
     // This'll be false when we want to decrement sbIndex.
     var incrementSbIndex = true
 
     for (char in s) {
         rowSbs[sbIndex].append(char)
-
         incrementSbIndex =
             if (incrementSbIndex) sbIndex < rowSbs.lastIndex
             else sbIndex == 0
-
         sbIndex += if (incrementSbIndex) 1 else -1
     }
 
@@ -73,19 +70,20 @@ fun convert(s: String, numRows: Int): String {
 }
 ```
 
-### Original Solution
+#### My 1<sup>st</sup> Solution
 
 ```kotlin
 fun convert(s: String, numRows: Int): String {
     if (numRows == 1) {
         /*
-        This is a special situation since the loop below will decrement sbIndex by 2 and that will cause sbIndex
-        to be -1 if numRows is 1. This also happens to be a situation where we just return the param string.
+        This is a special situation since the loop below will decrement sbIndex
+        by 2 and that'll cause sbIndex to be -1 if numRows is 1. This also
+        happens to be a situation where we just return the param string.
         */
         return s
     }
     
-    // Let sbs be a list of string builders that will store the text that will go in each row.
+    // Let sbs be a list of string builders that'll store the text that'll go in each row.
     val sbs: List<StringBuilder> = List(size = numRows, init = { StringBuilder() })
     var sbIndex = 0
     val sIterator: Iterator<Char> = s.iterator()

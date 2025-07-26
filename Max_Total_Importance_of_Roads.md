@@ -68,8 +68,8 @@ fun maximumImportance(n: Int, roads: Array<IntArray>): Long {
     }
     
     /*
-    Let cityValues be a map where the keys are city numbers and the values are
-    the values we assign to those cities.
+    Let cityValues be a map where the keys are city numbers
+    and the values are the values we assign to those cities.
     */
     val cityValues: Map<Int, Int> =
         cityNeighborCounts
@@ -80,12 +80,12 @@ fun maximumImportance(n: Int, roads: Array<IntArray>): Long {
         .associate { (indexAfterSorting: Int, city) -> city to indexAfterSorting + 1 }
 
     /*
-    Convert the result of the inner sumOf to a long so the outer sumOf returns a long, which
-    is what this function is supposed to return. It seems safe to assume that there are some
-    test cases where the max total importance is greater than the int max value.
+    Convert the result of the inner sumOf to a long so the outer sumOf returns a long,
+    which is what this function is supposed to return. It seems safe to assume that there
+    are some test cases where the max total importance is greater than the int max value.
     */
-    return roads.sumOf {
-            road: IntArray -> road.sumOf { city: Int -> cityValues.getValue(city) }.toLong()
-        }
+    return roads.sumOf { road: IntArray ->
+        road.sumOf { city: Int -> cityValues.getValue(city) }.toLong()
+    }
 }
 ```

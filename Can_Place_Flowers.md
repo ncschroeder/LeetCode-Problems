@@ -37,13 +37,13 @@ Shown below are `flowerbed` examples and the arrows show where flowers can be pl
 
 ```kotlin
 fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
-    val indexOf1st1: Int = flowerbed.indexOf(1)
+    val indexOfFirst1: Int = flowerbed.indexOf(1)
     var numFlowersPlaceable: Int
     
-    if (indexOf1st1 == -1) {
+    if (indexOfFirst1 == -1) {
         /*
-        If this condition is true then there are only 0's in the flowerbed. We can place a flower at the first plot and
-        after that, we can place 1 flower for every 2 plots.
+        If this condition is true then there are only 0's in the flowerbed. We can place a
+        flower at the first plot and after that, we can place 1 flower for every 2 plots.
         */
         numFlowersPlaceable = 1 + ((flowerbed.size - 1) / 2)
         return numFlowersPlaceable >= n
@@ -53,18 +53,19 @@ fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
     For the 0's at the start and end of the flowerbed, we can place 1 flower for every 2 plots.
     The index of the first 1 is the same as the number of 0's that the flowerbed starts with.
     */
-    numFlowersPlaceable = indexOf1st1 / 2
+    numFlowersPlaceable = indexOfFirst1 / 2
     val indexOfLast1: Int = flowerbed.lastIndexOf(1)
     numFlowersPlaceable += (flowerbed.lastIndex - indexOfLast1) / 2
 
     /*
-    If the indices of the first and last 1's are different, find groups of 0's and their lengths in between the first and
-    last 1's. For these groups, we can't place a flower at the first plot but after that, we can place 1 flower for every
-    2 plots. Have the int range include indexOfLast1 so the else block runs on the last iteration.
+    If the indices of the first and last 1's are different, find groups of 0's and their lengths
+    in between the first and last 1's. For these groups, we can't place a flower at the first plot
+    but after that, we can place 1 flower for every 2 plots. Have the int range include indexOfLast1
+    so the else block runs on the last iteration.
     */
     var num0sInARow = 0
 
-    for (i: Int in indexOf1st1 + 1..indexOfLast1) {
+    for (i: Int in indexOfFirst1 + 1..indexOfLast1) {
         if (flowerbed[i] == 0) {
             num0sInARow++
         } else {

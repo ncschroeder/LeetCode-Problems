@@ -56,7 +56,7 @@ matrix =
 - `1 <= m, n <= 10`
 - `-100 <= matrix[i][j] <= 100`
 
-### Refactored Solution
+#### My Favorite Solution
 
 I'm going to use the term "level" for groups of ints in a matrix. Level 0 contains the ints that are on the outer edge of the matrix. Level 1 contains the ints in the matrix that would be on the outer edge if the outer edge, or level 0, was removed. Level 2 contains the ints in the matrix that would be on the outer edge if level 0 and level 1 were removed, and so on.
 
@@ -69,9 +69,9 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> {
             
     while (true) {
         /*
-        Add the ints in the current level to spiralInts. Add the ints on the top, then right, then bottom, then left.
-        The top and bottom will include the ints on the corners and the right and left won't. Break the loop when all
-        ints in the matrix have been added to sprialInts.
+        Add the ints in the current level to spiralInts. Add the ints on the top, then right, then
+        bottom, then left. The top and bottom will include the ints on the corners and the right
+        and left won't. Break the loop when all ints in the matrix have been added to sprialInts.
         */
 
         val levelLastRow: Int = matrixLastRow - level
@@ -102,8 +102,8 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> {
         }
         
         /*
-        Check if the rows in the current level are next to each other or
-        the columns in the current level are next to each other.
+        Check if the rows in the current level are next to each other
+        or the columns in the current level are next to each other.
         */
         if (levelPlus1 == levelLastRow || levelPlus1 == levelLastCol) break
         
@@ -114,7 +114,7 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> {
 }
 ```
 
-### Original Solution
+#### My 1<sup>st</sup> Solution
 
 Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
 
@@ -144,7 +144,9 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> {
             ints.add(matrix[row][0])
         }
 
-        val subMatrix = (1 until matrix.lastIndex).map { matrix[it].slice(1 until matrix.first().lastIndex) }
+        val subMatrix =
+            (1 until matrix.lastIndex)
+            .map { matrix[it].slice(1 until matrix.first().lastIndex) }
 
         return spiralOrderRecursive(subMatrix, ints)
     }

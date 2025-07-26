@@ -98,6 +98,6 @@ fun rob(nums: IntArray): Int {
         maxMoneys[i] = nums[i] + max(maxMoneys[i + 2], maxMoneys[i + 3])
     }
 
-    return max(maxMoneys.first(), maxMoneys[1])
+    return max(maxMoneys[0], maxMoneys[1])
 }
 ```

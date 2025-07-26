@@ -66,8 +66,9 @@ Some info about the [`buildList`](https://kotlinlang.org/api/latest/jvm/stdlib/k
 ```kotlin
 fun tictactoe(moves: Array<IntArray>): String {
     /*
-    Find out how the game went. Let grid be a 2D list that stores where the players took their turns. Since the 2 players are
-    A and B and we have to return 1 of those as a string if there's a winner, let the grid contents be either "A", "B", or null.
+    Find out how the game went. Let grid be a 2D list that stores where the players
+    took their turns. Since the 2 players are A and B and we have to return 1 of those
+    as a string if there's a winner, let the grid contents be either "A", "B", or null.
     */
     val grid: List<MutableList<String?>> =
         List(size = 3, init = { mutableListOf(null, null, null) })
@@ -77,7 +78,10 @@ fun tictactoe(moves: Array<IntArray>): String {
         grid[row][col] = if (index % 2 == 0) "A" else "B"
     }
 
-    // Let groups be a 2D list where each nested list contains 3 values for the contents of the rows, columns, and diagonal groups.
+    /*
+    Let groups be a 2D list where each nested list contains 3 values
+    for the contents of the rows, columns, and diagonal groups.
+    */
     val groups: List<List<String?>> =
         buildList(capacity = 8) {
             // Rows
@@ -94,9 +98,11 @@ fun tictactoe(moves: Array<IntArray>): String {
         }
 
     // If a group has values that are all the same and aren't null, then that value is the winner.
-    return groups
+    return (
+        groups
         .firstOrNull { (s1, s2, s3): List<String?> -> s1 != null && s1 == s2 && s1 == s3 }
         ?.first()
         ?: if (moves.size == 9) "Draw" else "Pending"
+    )
 }
 ```

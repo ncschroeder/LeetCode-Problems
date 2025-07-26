@@ -48,7 +48,19 @@ merged: a p b q   r   s
 - `1 <= word1.length, word2.length <= 100`
 - `word1` and `word2` consist of lowercase English letters.
 
-### Refactored Solution
+### My 1<sup>st</sup> Solution
+
+```kotlin
+fun mergeAlternately(word1: String, word2: String): String =
+    (word1 zip word2)
+    .joinToString(
+        transform = { (word1Char, word2Char) -> "$word1Char$word2Char" },
+        separator = "",
+        postfix = if (word1.length > word2.length) word1.drop(word2.length) else word2.drop(word1.length)
+    )
+```
+
+### My 2<sup>nd</sup> Solution
 
 Some info about the [`buildString`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) function can be found in the README in the "Languages Used" -> "Kotlin" -> "Functions with Receivers" section.
 
@@ -64,18 +76,11 @@ fun mergeAlternately(word1: String, word2: String): String =
         }
         
         (if (iterator1.hasNext()) iterator1 else iterator2)
-        .forEach(::append)
-        // Yes, in Kotlin you can iterate through the remaining elements of an iterator using a for loop or forEach.
+        .forEach { char -> append(char) }
+
+        /*
+        Yes, in Kotlin you can iterate through the remaining
+        elements of an iterator using a for loop or forEach.
+        */
     }
-```
-
-### Original Solution
-
-```kotlin
-fun mergeAlternately(word1: String, word2: String): String =
-    word1.zip(word2).joinToString(
-        transform = { (c1, c2) -> "$c1$c2" },
-        postfix = if (word1.length > word2.length) word1.drop(word2.length) else word2.drop(word1.length),
-        separator = ""
-    )
 ```

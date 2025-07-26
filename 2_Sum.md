@@ -25,6 +25,7 @@ You can return the answer in any order.
 - Only one valid answer exists.
 
 ### Follow-Up
+
 Can you come up with an algorithm that is less than $O(n^2)$ time complexity? Yes.
 
 ### Simple $O(n^2)$ Solution
@@ -63,9 +64,10 @@ fun twoSum(nums: IntArray, target: Int): IntArray {
     }
     
     /*
-    Let numsAndIndices be a map where the keys are the numbers in nums and the values are the indices of those numbers. We can map
-    each number to a single index since the numbers in the solution will only have a single index. If there are duplicates of
-    numbers that aren't part of the solution, the associate function will map those numbers to the last index they were found at.
+    Let numsAndIndices be a map where the keys are the numbers in nums and the values are the indices
+    of those numbers. We can map each number to a single index since the numbers in the solution will
+    only have a single index. If there are duplicates of numbers that aren't part of the solution,
+    then the associate function will map those numbers to the last index they were found at.
     */
     val numsAndIndices: Map<Int, Int> =
         nums.withIndex().associate { (index: Int, num: Int) -> num to index }
@@ -74,7 +76,7 @@ fun twoSum(nums: IntArray, target: Int): IntArray {
         val index2: Int? = numsAndIndices[target - num]
 
         /*
-        If the target is even and target / 2 is a number in nums, when we get to the iteration where num
+        If the target is even and target / 2 is a number in nums, then when we get to the iteration where num
         is equal to target / 2, num will also be equal to target - num so index1 will be equal to index2.
         */
         if (index2 != null && index1 != index2) {

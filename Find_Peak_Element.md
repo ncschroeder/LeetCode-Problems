@@ -45,29 +45,7 @@ Your function can return either index number `1` where the peak element is 2, or
 
 To solve this, do a binary search. When given a first and last index, first check if they're the same. If they are then that index is a peak index. Otherwise, check the number at the index in the middle of those indices and the number after that. If the number after it is greater, there must be a peak element *somewhere* from the mid index + 1 to the last index. Otherwise, the mid number is greater because of the 3<sup>rd</sup> constraint so there must be a peak element *somewhere* from the first index to the mid index.
 
-For finding the mid index, we can use `(firstIndex + lastIndex) / 2` since the 1<sup>st</sup> constraint says that the max length of `nums` is 1,000. When finding the mid index, the highest possible values for `firstIndex` and `lastIndex` are 998 and 999, respectively. $998 + 999 = 1,997$, which is way lower than the `Int` max value, which is 2 billion something. There are other binary search problems on LeetCode where I tried finding a mid value using the same arithmetic and this caused problems with overflow because of the constraints of those problems and because I was using `Int`s for the arithmetic. The simplest way to fix those problems is to use `Long`s for the arithmetic, but we don't need to do that for this problem.
-
-#### Refactored Tail Recursive Solution
-
-Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
-
-```kotlin
-fun findPeakElement(nums: IntArray): Int {
-    tailrec fun findPeakElement(firstIndex: Int, lastIndex: Int): Int =
-        if (firstIndex == lastIndex) firstIndex
-        else {
-            val midIndex: Int = (firstIndex + lastIndex) / 2
-                
-            if (nums[midIndex + 1] > nums[midIndex]) {
-                findPeakElement(midIndex + 1, lastIndex)
-            } else {
-                findPeakElement(firstIndex, midIndex)
-            }
-        }
-
-    return findPeakElement(0, nums.lastIndex)
-}
-```
+For finding the mid index, we can use `(firstIndex + lastIndex) / 2` since the 1<sup>st</sup> constraint says that the max length of `nums` is 1,000. When finding the mid index, the highest possible values for `firstIndex` and `lastIndex` are 998 and 999, respectively. $998 + 999 = 1,997$, which is way lower than the int max value, which is 2 billion something. There are other binary search problems on LeetCode where I tried finding a mid value using the same arithmetic and this caused problems with overflow because of the constraints of those problems and because I was using ints for the arithmetic. The simplest way to fix that is to use longs for the arithmetic, but we don't need to do that for this problem.
 
 #### Iterative Solution
 
@@ -90,11 +68,32 @@ fun findPeakElement(nums: IntArray): Int {
 }
 ```
 
-#### Original Tail Recursive Solution
+#### Refactored Tail Recursive Solution
+
+Info about tail recursive functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/functions.html#tail-recursive-functions).
 
 ```kotlin
 fun findPeakElement(nums: IntArray): Int {
+    tailrec fun binarySearch(firstIndex: Int, lastIndex: Int): Int =
+        if (firstIndex == lastIndex) firstIndex
+        else {
+            val midIndex: Int = (firstIndex + lastIndex) / 2
+                
+            if (nums[midIndex + 1] > nums[midIndex]) {
+                binarySearch(midIndex + 1, lastIndex)
+            } else {
+                binarySearch(firstIndex, midIndex)
+            }
+        }
 
+    return binarySearch(0, nums.lastIndex)
+}
+```
+
+#### My 1<sup>st</sup> Solution (Tail Recursive)
+
+```kotlin
+fun findPeakElement(nums: IntArray): Int {
     tailrec fun search(startIndex: Int, endIndex: Int): Int {
         if (startIndex == endIndex) {
             return startIndex

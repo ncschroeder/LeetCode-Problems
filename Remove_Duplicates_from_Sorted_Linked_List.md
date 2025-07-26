@@ -20,6 +20,7 @@ The head of the linked list `1 -> 2 -> 3`.
 - The list is guaranteed to be sorted in ascending order.
 
 ### Definition for a Singly-Linked List
+
 ```kotlin
 class ListNode(var `val`: Int) {
     var next: ListNode? = null

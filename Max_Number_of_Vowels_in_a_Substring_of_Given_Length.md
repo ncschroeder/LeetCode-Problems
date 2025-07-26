@@ -32,26 +32,29 @@ The substring "iii" contains 3 vowel letters.
 The vowel counting at the beginning is a $O(k)$ operation and then the for loop is a $O(n - k)$ operation, where $n$ is the size of `s`. $k + (n - k) = n$, so the time complexity is $O(n)$.
 
 ```kotlin
-val vowels: Set<Char> = "aeiou".toSet()
+class Solution {
+    val vowels: Set<Char> = "aeiou".toSet()
 
-fun maxVowels(s: String, k: Int): Int {
-    var curVowelCount: Int = s.take(k).count { it in vowels }
-    var maxVowelCount = curVowelCount
+    fun maxVowels(s: String, k: Int): Int {
+        var curVowelCount: Int = s.take(k).count { it in vowels }
+        var maxVowelCount = curVowelCount
 
-    /*
-    To find the number of vowels in the next substring of length k, decrement curVowelCount if the 1st char of the
-    current substring is a vowel and increment curVowelCount if the last char of the next substring is a vowel.
-    */
-    
-    for (i: Int in 0..s.lastIndex - k) {
-        if (s[i] in vowels) curVowelCount--
+        /*
+        To find the number of vowels in the next substring of length k, decrement
+        curVowelCount if the 1st char of the current substring is a vowel and
+        increment curVowelCount if the last char of the next substring is a vowel.
+        */
+        
+        for (i: Int in 0..s.lastIndex - k) {
+            if (s[i] in vowels) curVowelCount--
 
-        if (s[i + k] in vowels) {
-            curVowelCount++
-            maxVowelCount = max(maxVowelCount, curVowelCount)
+            if (s[i + k] in vowels) {
+                curVowelCount++
+                maxVowelCount = max(maxVowelCount, curVowelCount)
+            }
         }
+        
+        return maxVowelCount
     }
-    
-    return maxVowelCount
 }
 ```

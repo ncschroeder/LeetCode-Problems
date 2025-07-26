@@ -26,7 +26,9 @@ Implement the `Twitter` class:
 ```
 
 #### Output
-`[null,     null,        [5],           null,     null,        [6, 5],        null,       [5]]`
+```
+[null,      null,        [5],           null,     null,        [6, 5],        null,       [5]]
+```
 
 #### Explanation
 
@@ -56,8 +58,9 @@ class Twitter {
     val tweets = ArrayList<Tweet>()
 
     /*
-    Let usersAndFollowing be a map where the keys are user IDs and the values are sets of the IDs of the users that are
-    followed by the user whose ID is the key. The entries are lazily added when somebody follows somebody for the 1st time.
+    Let usersAndFollowing be a map where the keys are user IDs and the values are sets of the IDs
+    of the users that are followed by the user whose ID is the key. The entries are lazily added
+    when somebody follows somebody for the first time.
     */
     val usersAndFollowing = HashMap<Int, MutableSet<Int>>()
     
@@ -75,11 +78,13 @@ class Twitter {
                 { it.userId == userId }
             }
 
-        return tweets
+        return (
+            tweets
             .asReversed()
             .filter(tweetPredicate)
             .take(10)
             .map { it.tweetId }
+        )
     }
 
     fun follow(followerId: Int, followeeId: Int) {

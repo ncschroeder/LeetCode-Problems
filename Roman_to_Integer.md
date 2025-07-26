@@ -33,39 +33,41 @@ Given a Roman numeral, convert it to an integer.
 ### Solution
 
 ```kotlin
-val symbolValues: Map<Char, Int> =
-    mapOf(
-        'I' to 1,
-        'V' to 5,
-        'X' to 10,
-        'L' to 50,
-        'C' to 100,
-        'D' to 500,
-        'M' to 1_000
-    )
+class Solution {
+    val symbolValues: Map<Char, Int> =
+        mapOf(
+            'I' to 1,
+            'V' to 5,
+            'X' to 10,
+            'L' to 50,
+            'C' to 100,
+            'D' to 500,
+            'M' to 1_000
+        )
 
-val subtractionNumeralsAndValues: List<Pair<String, Int>> =
-    listOf(
-        "IV" to 4,
-        "IX" to 9,
-        "XL" to 40,
-        "XC" to 90,
-        "CD" to 400,
-        "CM" to 900
-    )
+    val subtractionNumeralsAndValues: List<Pair<String, Int>> =
+        listOf(
+            "IV" to 4,
+            "IX" to 9,
+            "XL" to 40,
+            "XC" to 90,
+            "CD" to 400,
+            "CM" to 900
+        )
 
-fun romanToInt(s: String): Int {
-    // First, identify the subtraction numerals in s, remove them, and get the sum of their values.
-    var updatedNumeral = s
-    var subtractionNumeralsSum = 0
+    fun romanToInt(s: String): Int {
+        // First, identify the subtraction numerals in s, remove them, and get the sum of their values.
+        var updatedNumeral = s
+        var subtractionNumeralsSum = 0
 
-    for ((numeral: String, value: Int) in subtractionNumeralsAndValues) {
-        if (numeral in updatedNumeral) {
-            subtractionNumeralsSum += value
-            updatedNumeral = updatedNumeral.replace(numeral, "")
+        for ((numeral: String, value: Int) in subtractionNumeralsAndValues) {
+            if (numeral in updatedNumeral) {
+                subtractionNumeralsSum += value
+                updatedNumeral = updatedNumeral.replace(numeral, "")
+            }
         }
-    }
 
-    return subtractionNumeralsSum + updatedNumeral.sumOf { symbol: Char -> symbolValues.getValue(symbol) }
+        return subtractionNumeralsSum + updatedNumeral.sumOf { symbol: Char -> symbolValues.getValue(symbol) }
+    }
 }
 ```

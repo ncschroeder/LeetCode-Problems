@@ -54,29 +54,31 @@ Everybody trusts somebody.
 ```kotlin
 fun findJudge(n: Int, trust: Array<IntArray>): Int {
     /*
-    Find the people that don't trust anybody, or the non-trusters, and the numbers of trusters they have. Finding the
-    non-trusters can be done by getting a set of all the people that do trust somebody and then finding the people that
-    aren't in that set. Let nonTrustersAndNumTrusters be a map where the keys are the non-trusters and the values start
-    at 0 and get set to the numbers of trusters.
-    */
-    val nonTrustersAndNumTrusters: MutableMap<Int, Int> =
-        trust
-        .mapTo(HashSet()) { (truster: Int, _) -> truster }
-        .let { (1..n) - it }
-        .associateWithTo(HashMap(), valueSelector = { 0 })
+	First, find the people that don't trust anybody, or the non-trusters.
+	This can be done by getting a set of all the people that do trust
+	somebody and then finding the people that aren't in that set.
+	*/
+	val trusters: Set<Int> =
+		trust.mapTo(HashSet()) { (truster: Int, _) -> truster }
+
+	/*
+	Let nonTrustersAndNumTrusters be a map where the keys are the non-trusters
+	and the values start at 0 and get set to the numbers of trusters.
+	*/
+	val nonTrustersAndNumTrusters: MutableMap<Int, Int> =
+		((1..n) - trusters).associateWithTo(HashMap()) { 0 }
     
     for ((_, trustee: Int) in trust) {
-        // Check if the trustee is a non-truster and if they are, increment their number of trusters.
         nonTrustersAndNumTrusters[trustee]?.let { nonTrustersAndNumTrusters[trustee] = it + 1 }
     }
 
     // See if there's a non-truster that's trusted by all people besides themself.
-    val numTrustersToFind: Int = n - 1
-    
-    return nonTrustersAndNumTrusters
+    return (
+        nonTrustersAndNumTrusters
         .asIterable()
-        .firstOrNull { (_, numTrusters: Int) -> numTrusters == numTrustersToFind }
+        .firstOrNull { (_, numTrusters: Int) -> numTrusters == n - 1 }
         ?.let { (judge: Int, _) -> judge }
         ?: -1
+    )
 }
 ```

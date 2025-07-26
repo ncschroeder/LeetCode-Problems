@@ -46,7 +46,7 @@ The ascending iteration solution has better performance since the [`sortedArray`
 #### Ascending Iteration Solution
 
 ```kotlin
-fun findContentChildren(g: IntArray, s: IntArray): Int {        
+fun findContentChildren(g: IntArray, s: IntArray): Int {
     val greedFactorIterator: Iterator<Int> = g.sortedArray().iterator()
     var greedFactor: Int = greedFactorIterator.next()
     var numKidsContent = 0
@@ -86,32 +86,34 @@ fun findContentChildren(g: IntArray, s: IntArray): Int {
 }
 ```
 
-### Original Solution
+#### My 1<sup>st</sup> Solution
 
 In this solution, I used deques and realized that using deques in this situation is unnecessary since I'm just using and removing the last elements of them without adding any elements to them. An iterator and a for loop can be used instead so that's why those are being used in the solutions above.
 
 ```kotlin
-fun findContentChildren(g: IntArray, s: IntArray): Int {
-    val gStack = g.toSortedDeque()
-    val sStack = s.toSortedDeque()
-    var count = 0
-    
-    while (gStack.isNotEmpty() && sStack.isNotEmpty()) {
-        val topSize = sStack.removeLast()
-        while (gStack.isNotEmpty()) {
-            val topG = gStack.removeLast()
-            if (topG <= topSize) {
-                count++
-                break
+class Solution {
+    fun findContentChildren(g: IntArray, s: IntArray): Int {
+        val gStack = g.toSortedDeque()
+        val sStack = s.toSortedDeque()
+        var count = 0
+        
+        while (gStack.isNotEmpty() && sStack.isNotEmpty()) {
+            val topSize = sStack.removeLast()
+            while (gStack.isNotEmpty()) {
+                val topG = gStack.removeLast()
+                if (topG <= topSize) {
+                    count++
+                    break
+                }
             }
         }
+        
+        return count
     }
-    
-    return count
-}
 
-fun IntArray.toSortedDeque(): ArrayDeque<Int> =
-    apply { sort() }
-    .asList()
-    .let { ArrayDeque(elements = it) }
+    fun IntArray.toSortedDeque(): ArrayDeque<Int> =
+        apply { sort() }
+        .asList()
+        .let { ArrayDeque(elements = it) }
+}
 ```

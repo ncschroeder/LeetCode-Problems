@@ -57,7 +57,6 @@ This solution does a depth-first search (DFS) with backtracking to find the cycl
 ```kotlin
 fun findRedundantConnection(edges: Array<IntArray>): IntArray {        
     val numNodes: Int = edges.size
-
     val neighborsMap: Map<Int, MutableList<Int>> =
         (1..numNodes).associateWith { ArrayList() }
 
@@ -68,7 +67,7 @@ fun findRedundantConnection(edges: Array<IntArray>): IntArray {
 
     /*
     A linked hash set is used since the iteration order is the same as the insertion order.
-    This is necessary for getting the nodes in the cycle.
+    This is necessary for getting the nodes in the cycle when calling the dropWhile function below.
     */
     val nodesInCurPath = LinkedHashSet<Int>()
 
@@ -83,13 +82,12 @@ fun findRedundantConnection(edges: Array<IntArray>): IntArray {
             The cycle has been found and includes the param node and
             all nodes that were added to nodesInCurPath after it.
             */
-            return nodesInCurPath
-                .dropWhile { it != node }
-                .toSet()
+            return nodesInCurPath.dropWhile { it != node }.toHashSet()
         }
 
         val neighborsToSearch: List<Int> =
-            neighborsMap.getValue(node)
+            neighborsMap
+            .getValue(node)
             .let { if (prevNode != null) it - prevNode else it }
 
         neighborsToSearch
@@ -112,7 +110,6 @@ This solution iterates backwards through the edges and for each edge, a DFS is d
 ```kotlin
 fun findRedundantConnection(edges: Array<IntArray>): IntArray {
     val numNodes: Int = edges.size
-
     val neighborsMap: Map<Int, MutableList<Int>> =
         (1..numNodes).associateWith { ArrayList() }
         
@@ -128,26 +125,27 @@ fun findRedundantConnection(edges: Array<IntArray>): IntArray {
         This does a DFS on the component of the graph that the param node is in. The param edge won't
         be used. If a cycle is found, true will be returned. Otherwise, false will be returned.
         */
-        fun searchForCycle(node: Int, prevNode: Int? = null): Boolean =
-            !visitedNodes.add(node) ||
-            run {
-                val neighborsToIgnore: List<Int> =
-                    buildList(capacity = 2) {
-                        if (prevNode != null) add(prevNode)
-                        
-                        if (node in edge) {
-                            add(edge.single { it != node })
-                        }
+        fun searchForCycle(node: Int, prevNode: Int? = null): Boolean {
+            if (!visitedNodes.add(node)) return true
+            
+            val neighborsToIgnore: List<Int> =
+                buildList(capacity = 2) {
+                    if (prevNode != null) add(prevNode)
+
+                    if (node in edge) {
+                        add(edge.single { it != node })
                     }
-                
-                val neighborsToSearch: List<Int> = neighborsMap.getValue(node) - neighborsToIgnore
-                neighborsToSearch.any { searchForCycle(node = it, prevNode = node) }
-            }
+                }
+
+            val neighborsToSearch: List<Int> = neighborsMap.getValue(node) - neighborsToIgnore
+            return neighborsToSearch.any { searchForCycle(node = it, prevNode = node) }
+        }
         
         /*
-        Since we won't be using the param edge when doing the DFS, that might cause us to not be able to visit all nodes.
-        If we aren't able to visit all nodes, then that means the graph wouldn't be connected if we removed the param
-        edge, which means it wouldn't be a tree. Check that a cycle doesn't get found and all nodes get visited.
+        Since we won't be using the param edge when doing the DFS, that might cause us to
+        not be able to visit all nodes. If we aren't able to visit all nodes, then that
+        means the graph wouldn't be connected if we removed the param edge, which means it
+        wouldn't be a tree. Check that a cycle doesn't get found and all nodes get visited.
         */
         return !searchForCycle(node = 1) && visitedNodes.size == numNodes
     }

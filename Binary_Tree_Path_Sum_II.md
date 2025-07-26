@@ -57,27 +57,27 @@ class TreeNode(var `val`: Int) {
 fun pathSum(root: TreeNode?, targetSum: Int): List<List<Int>> {
     val paths = ArrayList<List<Int>>()
     
-    // Used as a stack for keeping track of a path that's being traversed.
-    val curPath = ArrayList<Int>()
+    // Used for keeping track of a path that's being traversed.
+    val curPath = Stack<Int>()
     
-    fun traverse(node: TreeNode?) {
+    fun findPaths(node: TreeNode?) {
         if (node == null) return
-        curPath.add(node.`val`)
+        curPath.push(node.`val`)
         
         if (node.left == null && node.right == null) {
             if (curPath.sum() == targetSum) {
                 paths.add(curPath.toList())
             }
         } else {
-            traverse(node.left)
-            traverse(node.right)
+            findPaths(node.left)
+            findPaths(node.right)
         }
         
         // Backtrack
-        curPath.removeLast()
+        curPath.pop()
     }
     
-    traverse(root)
+    findPaths(root)
     return paths
 }
 ```

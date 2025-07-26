@@ -37,8 +37,8 @@ fun groupAnagrams(strs: Array<String>): List<List<String>> {
 
     for (s: String in strs) {
         /*
-        Let letterCounts be a map where the keys are the letters in s
-        and the values are the counts of those letters in s.
+        Let letterCounts be a map where the keys are the letters
+        in s and the values are the counts of those letters in s.
         */
         val letterCounts: Map<Char, Int> =
             s

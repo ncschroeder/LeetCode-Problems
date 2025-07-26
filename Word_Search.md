@@ -4,7 +4,7 @@
 
 ### Description
 
-Given an `m x n` grid of characters `board` and a string `word`, return `true` if word exists in the grid.
+Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid.
 
 The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
@@ -77,9 +77,9 @@ fun exist(board: Array<CharArray>, word: String): Boolean {
     val cols: IntRange = board.first().indices
 
     data class Cell(val row: Int, val col: Int) {
-            
         val letter: Char
             get() = board[row][col]
+
         fun getAdjacentCells(): List<Cell> =
             arrayOf(
                 Cell(row - 1, col),
@@ -89,9 +89,9 @@ fun exist(board: Array<CharArray>, word: String): Boolean {
             )
             .filter { it.row in rows && it.col in cols }
     }
-    
-    
+
     val cellsInCurPath = HashSet<Cell>()
+
     fun canFormWord(cell: Cell, wordIndex: Int): Boolean {
         when {
             cell in cellsInCurPath || cell.letter != word[wordIndex] -> return false
@@ -125,13 +125,15 @@ fun exist(board: Array<CharArray>, word: String): Boolean {
 }
 ```
 
-#### Original Bottleneck-Inducing :champagne: Solution with Inefficient Backtracking
+#### My 1<sup>st</sup> Solution
+
+This solution is bottleneck-inducing :champagne:. The implementation of backtracking is inefficient since it involves creating a bunch of sets to store visited coords.
 
 ```kotlin
 fun exist(board: Array<CharArray>, word: String): Boolean {
     /*
-    canFormWord returns true if the param word starting at startIndex can be formed when starting at startCoord in
-    the grid and with all previously visited coords in visitedCoords.
+    canFormWord returns true if the param word starting at startIndex can be formed when
+    starting at startCoord in the grid and with all previously visited coords in visitedCoords.
     */
     fun canFormWord(startIndex: Int, startCoord: Pair<Int, Int>, visitedCoords: Set<Pair<Int, Int>>): Boolean {
         if (startIndex > word.lastIndex) {

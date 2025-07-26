@@ -74,7 +74,7 @@ board =
 
 The description says to return the next state but that must be a mistake because the return type is `Unit`, the equivalent of `void`. I mutated the `board` param and submitted and that got accepted so that must've been what they meant. A possible explanation of why they have you do that is because there's a follow-up question: "Could you solve it in-place?"
 
-#### Refactored Solution
+#### My Favorite Solution
 
 ```kotlin
 fun gameOfLife(board: Array<IntArray>): Unit {
@@ -95,13 +95,11 @@ fun gameOfLife(board: Array<IntArray>): Unit {
             }
         }
 
-        return when {
-            board[row][col] == 1 -> if (numLiveNeighbors in 2..3) 1 else 0
-            
-            numLiveNeighbors == 3 -> 1
-            
-            else -> 0
-        }                      
+        return if (board[row][col] == 1) {
+            if (numLiveNeighbors in 2..3) 1 else 0
+        } else {
+            if (numLiveNeighbors == 3) 1 else 0
+        }
     }
 
     val newBoard: List<List<Int>> =
@@ -115,7 +113,7 @@ fun gameOfLife(board: Array<IntArray>): Unit {
 }
 ```
 
-#### Original Solution
+#### My 1<sup>st</sup> Solution
 
 ```kotlin
 fun gameOfLife(board: Array<IntArray>): Unit {

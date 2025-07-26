@@ -73,11 +73,11 @@ You have `id = 0` (top node in the graph) and the only friend of your friends is
 ```kotlin
 fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<IntArray>, id: Int, level: Int): List<String> {
     /*
-    First, do a breadth-first search (BFS) to find people and the level they're at. The search will
-    end when we find all people at the param level.
+    First, do a breadth-first search (BFS) to find people and the level they're at.
+    The search will end when we find all people at the param level.
 
-    Let peopleToCheck be a deque of pairs that's used as a queue for the BFS. Each pair contains a
-    person's ID and the level they're at.
+    Let peopleToCheck be a deque of pairs that's used as a queue for the BFS.
+    Each pair will contain a person's ID and the level they're at.
     */
     val peopleToCheck =
         ArrayDeque<Pair<Int, Int>>()
@@ -88,7 +88,6 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     
     while (peopleToCheck.isNotEmpty()) {
         val (person: Int, personLevel: Int) = peopleToCheck.removeFirst()
-        
         val personsFriendsAtNextLevel: List<Int> =
             friends[person].filter { peopleFound.add(it) }
         
@@ -117,9 +116,24 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     val videoWatchCountComparator: Comparator<Map.Entry<String, Int>> =
         compareBy({ (_, watchCount) -> watchCount }, { (video, _) -> video })
 
-    return videoWatchCounts
+    return (
+        videoWatchCounts
         .asIterable()
         .sortedWith(videoWatchCountComparator)
         .map { (video, _) -> video }
+    )
+
+    /*
+    In my first solution, instead of using a comparator, I used this code:
+    
+    return (
+        videoWatchCounts
+        .asIterable()
+        .groupBy(keySelector = { it.value }, valueTransform = { it.key })
+        .asIterable()
+        .sortedBy { (numWatches, _) -> numWatches }
+        .flatMap { (_, videos: List<String>) -> videos.sorted() }
+    )
+    */
 }
 ```

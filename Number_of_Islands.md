@@ -55,7 +55,7 @@ To solve this, iterate througn all the cells in the grid and when we find a cell
 This problem is similar to an assignment I got in my "Algorithms and Advanced Data Structures" class in fall 2019. We were learning about graph theory and DFS and the assignment was to implement a function that could find the number of friend circles in a graph. This function has an adjacency matrix for friendship statuses as a param. The professor had the assignment be to solve this particular problem since a student of his got asked to solve it in a coding interview. This friends circles problem is virtually identical to the LeetCode problem ["Number of Provinces"](https://leetcode.com/problems/number-of-provinces/).
 
 
-#### Refactored Solution
+#### My Favorite Solution
 
 ```kotlin
 fun numIslands(grid: Array<CharArray>): Int {
@@ -95,7 +95,7 @@ fun numIslands(grid: Array<CharArray>): Int {
 }
 ```
 
-#### Original Solution
+#### My 1<sup>st</sup> Solution
 
 ```kotlin
 fun numIslands(grid: Array<CharArray>): Int {

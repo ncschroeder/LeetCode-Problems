@@ -15,16 +15,8 @@ Given a string `word`, return `true` if the usage of capitals in it is right.
 - `1 <= word.length <= 100`
 - `word` consists of lowercase and uppercase English letters.
 
-### Regex Solution
 
-```kotlin
-val regex = Regex("([A-Z]?[a-z]*)|[A-Z]+")
-
-fun detectCapitalUse(word: String): Boolean =
-    regex matches word
-```
-
-### Non-Regex Solution
+### Higher-Order Functions Solution
 
 I came up with this before I realized that regex could be used.
 
@@ -39,4 +31,15 @@ fun detectCapitalUse(word: String): Boolean =
 
         else -> word.drop(2).all { it.isLowerCase() }
     }
+```
+
+### Regex Solution
+
+```kotlin
+class Solution {
+    val regex = Regex("([A-Z]?[a-z]*)|[A-Z]+")
+
+    fun detectCapitalUse(word: String): Boolean =
+        regex matches word
+}
 ```

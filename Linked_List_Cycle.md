@@ -19,9 +19,9 @@ Return `true` if there is a cycle in the linked list. Otherwise, return `false`.
 
 Can you solve it using $O(1)$ (i.e. constant) memory? Yes.
 
-### C++ Solution that Uses Pointers :point_up_2:
+### C++ Solution That Uses Pointers :point_up_2:
 
-As mentioned in the README, I came up with a solution that uses the memory addresses of objects, and those can be accessed with pointers in C++ and cannot be accessed in Kotlin.
+As mentioned in the README, I came up with a solution that uses the memory addresses of objects, and those can be accessed with pointers in C++ and can't be accessed in Kotlin.
 
 This solution has a time and space complexity of $O(n)$.
 
@@ -42,8 +42,9 @@ bool hasCycle(ListNode* head) {
     
     while (curNode != nullptr) {
         /*
-        insert returns a pair and the 2nd item of that pair is a bool that is true if the item wasn't in the
-        set and got inserted. That bool is false if the item was already in the set and didn't get inserted.
+        insert returns a pair and the second item of that pair is a bool that's true
+        if the item wasn't in the set and got inserted. That bool is false if the item
+        was already in the set and didn't get inserted.
         */
         if (!nodePtrs.insert(curNode).second) return true;
         curNode = curNode->next;
@@ -53,7 +54,7 @@ bool hasCycle(ListNode* head) {
 }
 ```
 
-### Kotlin Solution that Doesn't Use Pointers
+### Kotlin Solution That Doesn't Use Pointers
 
 This solution has a time complexity of $O(n^2)$ and a space complexity of $O(1)$.
 
@@ -73,7 +74,7 @@ fun hasCycle(head: ListNode?): Boolean {
     while (curNode != null) {
         /*
         Check if there are any nodes before curNode that are referentially equal to curNode.
-        If there are then that means that curNode is on its 2nd loop of a cycle.
+        If there are then that means that curNode is on its second loop of a cycle.
         
         Non-null assertions (!!s) will be done on nodes before curNode or referentially equal to curNode.
         */

@@ -4,7 +4,7 @@
 
 ### Description
 
-You are given a 0-indexed integer array `arr`, and an `m x n` integer matrix `mat`. `arr` and `mat` both contain all the integers in the range [1, `m * n`].
+You are given a 0-indexed integer array `arr`, and an `m x n` integer matrix `mat`. `arr` and `mat` both contain all the integers in the range `[1, m * n]`.
 
 Go through each index `i` in `arr` starting from index 0 and paint the cell in `mat` containing the integer `arr[i]`.
 
@@ -61,7 +61,7 @@ The second column becomes fully painted at `arr[3]`.
 - All the integers of `arr` are unique.
 - All the integers of `mat` are unique.
 
-### Refactored Efficient Solution
+#### My Most Efficient Solution
 
 This has a time complexity of $O(m \times n)$.
 
@@ -81,18 +81,20 @@ fun firstCompleteIndex(arr: IntArray, mat: Array<IntArray>): Int {
         }
     }
 
-    return arr
+    return (
+        arr
         .indices
         .first {
             val (row: Int, col: Int) = matrixLocations.getValue(arr[it])
             ++rowPaintedCellCounts[row] == numCols || ++colPaintedCellCounts[col] == numRows
         }
+    )
 }
 ```
 
-### Original Bottleneck-Inducing Solution :champagne:
+#### My 1<sup>st</sup> Solution
 
-This has a time complexity of $O((m \times n)(m + n))$.
+This solution is bottleneck-inducing :champagne: since it has a time complexity of $O((m \times n)(m + n))$.
 
 ```kotlin
 fun firstCompleteIndex(arr: IntArray, mat: Array<IntArray>): Int {
