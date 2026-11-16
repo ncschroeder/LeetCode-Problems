@@ -83,7 +83,7 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
     val peopleToCheck =
         ArrayDeque<Pair<Int, Int>>()
         .apply { add(Pair(id, 0)) }
-    val peopleFound: MutableSet<Int> = mutableSetOf(id)
+    val peopleFound: MutableSet<Int> = hashSetOf(id)
     val peopleAtParamLevel = ArrayList<Int>()
     
     while (peopleToCheck.isNotEmpty()) {
@@ -122,18 +122,17 @@ fun watchedVideosByFriends(watchedVideos: List<List<String>>, friends: Array<Int
         .sortedWith(videoWatchCountComparator)
         .map { (video, _) -> video }
     )
-    
-    /*
-    In my first solution, instead of using a comparator, I used this code:
-    
-    return (
-        videoWatchCounts
-        .asIterable()
-        .groupBy(keySelector = { it.value }, valueTransform = { it.key })
-        .asIterable()
-        .sortedBy { (numWatches, _) -> numWatches }
-        .flatMap { (_, videos: List<String>) -> videos.sorted() }
-    )
-    */
-}
+```
+
+In my 1<sup>st</sup> solution, instead of using a comparator, I used this code:
+
+```kotlin
+return (
+    videoWatchCounts
+    .asIterable()
+    .groupBy(keySelector = { it.value }, valueTransform = { it.key })
+    .asIterable()
+    .sortedBy { (numWatches, _) -> numWatches }
+    .flatMap { (_, videos: List<String>) -> videos.sorted() }
+)
 ```

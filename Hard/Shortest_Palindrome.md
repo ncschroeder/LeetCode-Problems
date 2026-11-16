@@ -35,7 +35,7 @@ Return the shortest palindrome you can find by performing this transformation.
 
 To solve this, find the longest palindrome that can be made by dropping letters from the right. Start by "dropping" 0 letters. When a palindrome is found: get a string of the dropped letters, reverse it, and return the result of prepending that string to the param string. When we drop all letters besides the 1<sup>st</sup> one, the substring to search will always be a palindrome. That's why the usage of the `first` function won't throw an exception.
 
-Info about extension functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/extensions.html#extension-functions).
+Info about extension functions can be found in the Kotlin Docs [here](https://kotlinlang.org/docs/extensions.html#extension-functions) and info about infix functions can be found [here](https://kotlinlang.org/docs/functions.html#infix-notation).
 
 ```kotlin
 class Solution {
@@ -48,8 +48,8 @@ class Solution {
         }
     
     /*
-    This extension function returns true if this string is a palindrome from
-    the start to the index provided, inclusive. Returns false otherwise.
+    This extension function returns true if this string is a palindrome
+    from the start to lastIndex, inclusive. Returns false otherwise.
     */
     infix fun String.isPalindromeTo(lastIndex: Int): Boolean =
         (0 until (lastIndex + 1) / 2)

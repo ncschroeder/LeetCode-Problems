@@ -4,7 +4,7 @@
 
 As mentioned in the README, this is a unique problem since it's one of a few LeetCode problems I've done, and the only problem in this repo, that requires you to implement a class.
 
-As of July 29th, 2024; this problem is called "Design Twitter". I wonder if LeetCode is ever going to rename it to "Design X". :thinking:
+As of November 2026, this problem is called "Design Twitter". I wonder if LeetCode is ever going to rename it to "Design X". :thinking:
 
 ### Description
 
@@ -23,13 +23,13 @@ Implement the `Twitter` class:
 
 ```
 ["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"]
-[[],        [1, 5],      [1],           [1, 2],   [2, 6],      [1],           [1, 2],     [1]]
+[   [],       [1, 5],         [1],       [1, 2],    [2, 6],         [1],        [1, 2],        [1]     ]
 ```
 
 #### Output
 
 ```
-[null,      null,        [5],           null,     null,        [6, 5],        null,       [5]]
+[  null,       null,          [5],        null,      null,        [6, 5],        null,         [5]     ]
 ```
 
 #### Explanation
@@ -96,7 +96,7 @@ class Twitter {
         if (followingIds != null) {
             followingIds.add(followeeId)
         } else {
-            usersAndFollowing[followerId] = mutableSetOf(followeeId)
+            usersAndFollowing[followerId] = hashSetOf(followeeId)
         }
     }
     

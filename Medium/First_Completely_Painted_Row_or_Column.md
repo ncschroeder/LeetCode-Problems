@@ -62,8 +62,6 @@ The second column becomes fully painted at `arr[3]`.
 - All the integers of `arr` are unique.
 - All the integers of `mat` are unique.
 
-~~### Refactored Efficient Solution~~
-
 #### My Most Efficient Solution
 
 This has a time complexity of $O(m \times n)$.

@@ -83,7 +83,7 @@ fun findRedundantConnection(edges: Array<IntArray>): IntArray {
             The cycle has been found and includes the param node and
             all nodes that were added to nodesInCurPath after it.
             */
-            return nodesInCurPath.dropWhile { it != node }.toHashSet()
+            return nodesInCurPath.dropWhile { it != node }.toSet()
         }
         
         val neighborsToSearch: List<Int> =
